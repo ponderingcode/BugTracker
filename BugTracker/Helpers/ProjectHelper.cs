@@ -8,7 +8,7 @@ namespace BugTracker.Helpers
 {
     public class ProjectHelper
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        //ApplicationDbContext db = new ApplicationDbContext();
 
         //public bool IsUSerOnProject(string userId, int projectId)
         //{

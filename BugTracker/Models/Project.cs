@@ -11,7 +11,7 @@ namespace BugTracker.Models
     // 1. Project is currently the top-tier unit of organization; add higher tiers for companies & divisions.
     //    Doing so will be useful for everything from small conglomerates to international businesses with continent or country-based divisions.
     //    These additional tiers will necessitate the creation of additional roles & modification of existing roles, such as
-    //    "CompanyAdministrator", "DivisionAdministrator", & "SuperAdministrator"
+    //    "CompanyAdministrator," "DivisionAdministrator," & "SuperAdministrator."
     //
     // 2. Add comprehensive audit trail/chain of custody to this, tickets, users, etc.
     //
@@ -20,7 +20,7 @@ namespace BugTracker.Models
         public int Id { get; set; }
         //public int? CompanyId { get; set; }
         //public int? DivisionId { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
         public string Priority { get; set; } // Projects have priorities just like tickets do, especially when a project is the CEO's idea
