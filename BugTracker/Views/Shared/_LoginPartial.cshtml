@@ -2,16 +2,17 @@
 @using Microsoft.AspNet.Identity.EntityFramework
 @using BugTracker.Models
 @if (Request.IsAuthenticated)
-{
-    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-    var user = manager.FindById(User.Identity.GetUserId());
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
+            {
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var user = manager.FindById(User.Identity.GetUserId());
+                string displayedProfileInfo = (string.Empty == user.FirstName) ? user.Email : user.FirstName;
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello, " + @user.FirstName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + displayedProfileInfo + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>

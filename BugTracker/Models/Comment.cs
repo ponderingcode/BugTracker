@@ -11,10 +11,18 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public int ParentId { get; set; } // Parent can be Ticket or Project
+        public string Body { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset? DateUpdated { get; set; }
+
+        public virtual ICollection<Attachment> Attachments { get; set; }
+
+        public string AuthorId { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
         public Comment()
         {
-
+            this.Attachments = new HashSet<Attachment>();
         }
     }
 }

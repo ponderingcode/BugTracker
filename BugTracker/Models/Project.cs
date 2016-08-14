@@ -31,15 +31,18 @@ namespace BugTracker.Models
         public DateTimeOffset? DateArchived { get; set; } // Allow project manager to archive/hide old projects
 
         public virtual ICollection<Ticket> Tickets { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; } // Projects should support commenting, too.
+        //public virtual ICollection<Comment> Comments { get; set; } // Projects should support commenting, too.
         //public virtual ICollection<Attachment> Attachments { get; set; } // Project-level attachment(s)
         //public virtual ICollection<HistoryEntry> History { get; set; } // Project-level audit trail
 
         public string CreatorId { get; set; } // always an admin
+        public virtual ApplicationUser Creator { get; set; }
         public string AdministratorId { get; set; } // can be different than creator - admin who created project could quit, be fired, etc.
+        public virtual ApplicationUser Administrator { get; set; }
         public string ProjectManagerId { get; set; }
+        public virtual ApplicationUser ProjectManager { get; set; }
         public virtual ICollection<ApplicationUser> Developers { get; set; }
-        public virtual ICollection<ApplicationUser> Testers { get; set; } // QA (no QA role exists yet)
+        //public virtual ICollection<ApplicationUser> Testers { get; set; } // QA (no QA role exists yet)
 
         public Project()
         {

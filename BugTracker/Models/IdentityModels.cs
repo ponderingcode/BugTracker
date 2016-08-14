@@ -24,6 +24,15 @@ namespace BugTracker.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Attachment> TicketAttachments { get; set; }
+        //public DbSet<Attachment> ProjectAttachments { get; set; }
+        public DbSet<Comment> TicketComments { get; set; }
+        //public DbSet<Comment> ProjectComments { get; set; }
+        public DbSet<HistoryEntry> TicketHistory { get; set; }
+        //public DbSet<HistoryEntry> ProjectHistory { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
