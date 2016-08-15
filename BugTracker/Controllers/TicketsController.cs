@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -38,6 +40,7 @@ namespace BugTracker.Controllers
         // GET: Tickets/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -50,6 +53,13 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                ticket.CreatorId = User.Identity.GetUserId();
+                ticket.DateCreated = DateTimeOffset.Now;
+                if (string.Empty == ticket.AssigneeId)
+                {
+                    ticket.AssigneeId = Status.UNASSIGNED;
+                }
+
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");

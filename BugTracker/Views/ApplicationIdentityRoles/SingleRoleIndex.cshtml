@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BugTracker.Models.ApplicationIdentityRolesViewModel>
+
+@{
+    ViewBag.Title = "SingleRoleIndex";
+}
+
+<h2>SingleRoleIndex</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @ViewBag.roleName
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var user in ViewBag.usersInRole) {
+    <tr>
+        <td>
+            @user.Email
+        </td>
+    </tr>
+}
+@Html.ActionLink("Back to List", "Index")
+
+</table>

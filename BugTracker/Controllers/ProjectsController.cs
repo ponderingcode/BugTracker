@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using BugTracker.Helpers;
+using System;
 
 namespace BugTracker.Controllers
 {
@@ -45,10 +47,11 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,Priority,Owner,Creator")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Status,Priority,DateCreated,DateUpdated,DateTransferred,DateArchived,CreatorId,AdministratorId,ProjectManagerId")] Project project)
         {
             if (ModelState.IsValid)
             {
+                project.DateCreated = DateTimeOffset.Now;
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");

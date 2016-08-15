@@ -5,7 +5,7 @@
             {
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                 var user = manager.FindById(User.Identity.GetUserId());
-                string displayedProfileInfo = (string.Empty == user.FirstName) ? user.Email : user.FirstName;
+                string displayedProfileInfo = (string.Empty == user.FirstName || null == user.FirstName) ? user.Email : user.FirstName;
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {
                     @Html.AntiForgeryToken()

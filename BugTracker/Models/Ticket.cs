@@ -10,6 +10,7 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public int ProjectId { get; set; } // foreign key
+        public virtual Project Project { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Status { get; set; } // Don't forget QA-related statuses; include entire QA lifecycle
@@ -28,16 +29,19 @@ namespace BugTracker.Models
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<HistoryEntry> History { get; set; }
 
-        public string CreatorId { get; private set; }
+        public string CreatorId { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
         public string SubmitterId { get; set; }
+        public virtual ApplicationUser Submitter { get; set; }
         public string DeveloperId { get; set; }
+        public virtual ApplicationUser Developer { get; set; }
         public string TesterId { get; set; }
-        public string Assignee { get; set; }
+        public virtual ApplicationUser Tester { get; set; }
+        public string AssigneeId { get; set; }
+        public virtual ApplicationUser Assignee { get; set; }
 
-        public Ticket(ApplicationUser user)
+        public Ticket()
         {
-            this.CreatorId = user.Id;
-            this.Assignee = LifeCycleStatus.UNASSIGNED;
             this.Comments = new HashSet<Comment>();
             this.Attachments = new HashSet<Attachment>();
             this.History = new HashSet<HistoryEntry>();
