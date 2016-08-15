@@ -1,0 +1,135 @@
+﻿@model IEnumerable<BugTracker.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateSubmitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRejected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTransferred)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateArchived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmitterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeveloperId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TesterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assignee)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateSubmitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRejected)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTransferred)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateArchived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmitterId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeveloperId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TesterId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assignee)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

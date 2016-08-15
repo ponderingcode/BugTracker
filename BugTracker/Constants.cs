@@ -15,12 +15,13 @@
         public const string HIGH = "High";
     }
 
-    public static class Status
+    public static class LifeCycleStatus
     {
         public const string SUBMITTED = "Submitted";
         public const string QA = "QA";
         public const string PENDING_APPROVAL = "PendingApproval";
         public const string APPROVED = "Approved";
         public const string REJECTED = "Rejected";
+        public const string UNASSIGNED = "Unassigned";
     }
 }

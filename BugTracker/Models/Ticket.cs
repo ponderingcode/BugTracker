@@ -28,13 +28,16 @@ namespace BugTracker.Models
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<HistoryEntry> History { get; set; }
 
-        public string CreatorId { get; set; }
+        public string CreatorId { get; private set; }
         public string SubmitterId { get; set; }
         public string DeveloperId { get; set; }
         public string TesterId { get; set; }
+        public string Assignee { get; set; }
 
-        public Ticket()
+        public Ticket(ApplicationUser user)
         {
+            this.CreatorId = user.Id;
+            this.Assignee = LifeCycleStatus.UNASSIGNED;
             this.Comments = new HashSet<Comment>();
             this.Attachments = new HashSet<Attachment>();
             this.History = new HashSet<HistoryEntry>();
