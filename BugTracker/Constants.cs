@@ -43,6 +43,6 @@
         public const string MANAGE = "Manage";
         public const string PROJECTS = "Projects";
         public const string TICKETS = "Tickets";
-        public const string APPLICATION_IDENTITY_ROLES = "ApplicationIdentityRoles";
+        public const string ROLES = "Roles";
     }
 }

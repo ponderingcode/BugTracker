@@ -10,107 +10,116 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    public class ProjectsController : Controller
+    public class TicketCommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Projects
+        // GET: TicketComments
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            var ticketComments = db.TicketComments.Include(t => t.Ticket).Include(t => t.User);
+            return View(ticketComments.ToList());
         }
 
-        // GET: Projects/Details/5
+        // GET: TicketComments/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
+            TicketComments ticketComments = db.TicketComments.Find(id);
+            if (ticketComments == null)
             {
                 return HttpNotFound();
             }
-            return View(projects);
+            return View(ticketComments);
         }
 
-        // GET: Projects/Create
+        // GET: TicketComments/Create
         public ActionResult Create()
         {
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: TicketComments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,StartDate,EndDate")] Projects projects)
+        public ActionResult Create([Bind(Include = "Id,Comment,Created,TicketId,UserId")] TicketComments ticketComments)
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(projects);
+                db.TicketComments.Add(ticketComments);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(projects);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
+            return View(ticketComments);
         }
 
-        // GET: Projects/Edit/5
+        // GET: TicketComments/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
+            TicketComments ticketComments = db.TicketComments.Find(id);
+            if (ticketComments == null)
             {
                 return HttpNotFound();
             }
-            return View(projects);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
+            return View(ticketComments);
         }
 
-        // POST: Projects/Edit/5
+        // POST: TicketComments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate")] Projects projects)
+        public ActionResult Edit([Bind(Include = "Id,Comment,Created,TicketId,UserId")] TicketComments ticketComments)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(projects).State = EntityState.Modified;
+                db.Entry(ticketComments).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(projects);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
+            return View(ticketComments);
         }
 
-        // GET: Projects/Delete/5
+        // GET: TicketComments/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
+            TicketComments ticketComments = db.TicketComments.Find(id);
+            if (ticketComments == null)
             {
                 return HttpNotFound();
             }
-            return View(projects);
+            return View(ticketComments);
         }
 
-        // POST: Projects/Delete/5
+        // POST: TicketComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Projects projects = db.Projects.Find(id);
-            db.Projects.Remove(projects);
+            TicketComments ticketComments = db.TicketComments.Find(id);
+            db.TicketComments.Remove(ticketComments);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

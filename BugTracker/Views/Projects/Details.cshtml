@@ -1,4 +1,4 @@
-﻿@model BugTracker.Models.Project
+﻿@model BugTracker.Models.Projects
 
 @{
     ViewBag.Title = "Details";
@@ -7,95 +7,31 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Project</h4>
+    <h4>Projects</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.StartDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.StartDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.EndDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateUpdated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateUpdated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTransferred)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateTransferred)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateArchived)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateArchived)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatorId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AdministratorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdministratorId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectManagerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProjectManagerId)
+            @Html.DisplayFor(model => model.EndDate)
         </dd>
 
     </dl>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BugTracker.Models.RoleViewModel>
+@using BugTracker.Helpers
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Role
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    var linkText = "View All " + item.Name + "s (" + UserRolesHelper.UsersInRole(item.Name).Count.ToString() + ")";
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name) <a href="@Url.Action("SingleRoleIndex", ControllerName.ROLES, new { roleName = item.Name })">@linkText</a>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { applicationIdentityRoleId = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
