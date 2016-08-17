@@ -3,9 +3,14 @@
     public static class Role
     {
         public const string ADMINISTRATOR = "Administrator";
-        public const string DEVELOPER = "Developer";
         public const string PROJECT_MANAGER = "ProjectManager";
+        public const string DEVELOPER = "Developer";
         public const string SUBMITTER = "Submitter";
+        
+        /// <summary>
+        /// All roles except for Submitter
+        /// </summary>
+        public const string STAKEHOLDERS = ADMINISTRATOR + "," + PROJECT_MANAGER + "," + DEVELOPER;
     }
 
     public static class Priority

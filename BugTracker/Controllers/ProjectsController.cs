@@ -7,14 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using BugTracker.Authorization;
 
 namespace BugTracker.Controllers
 {
+    [VerboseAuthorize(Roles = Role.STAKEHOLDERS)]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Projects
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
@@ -36,6 +39,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +63,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +95,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
