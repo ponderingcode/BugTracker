@@ -165,7 +165,7 @@ namespace BugTracker.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -175,7 +175,7 @@ namespace BugTracker.Controllers
 
                     await UserRolesHelper.AddUserToRoleAsync(user.Id, Role.SUBMITTER);
                     //return RedirectToAction("Index", "Home");
-                    return RedirectToAction("ConfirmEmail", "Account", new { Email = user.Email });
+                    return RedirectToAction("ConfirmationSent", "Account", new { Email = user.Email });
                 }
                 AddErrors(result);
             }
@@ -215,11 +215,12 @@ namespace BugTracker.Controllers
             {
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a hred=\"" + callbackUrl + "\">here</a>");
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
             }
             return RedirectToAction("ConfirmationSent");
         }
 
+        [AllowAnonymous]
         public ActionResult ConfirmationSent()
         {
             return View();
