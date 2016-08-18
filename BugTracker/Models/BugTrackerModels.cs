@@ -192,4 +192,10 @@ namespace BugTracker.Models
         public virtual ICollection<Tickets> Tickets { get; set; }
     }
 
+    public partial class ProjectUsers
+    {
+        public int ProjectId { get; set; }
+        public string UserId { get; set; }
+    }
+
 }
