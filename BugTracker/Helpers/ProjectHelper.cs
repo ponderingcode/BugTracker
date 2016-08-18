@@ -1,4 +1,6 @@
 ﻿using BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,14 @@ namespace BugTracker.Helpers
     public static class ProjectHelper
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
+        private static UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-        private static Projects FindProject(int projectId)
+        private static List<ApplicationUser> AllUsers()
+        {
+            return manager.Users.ToList();
+        }
+
+        public static Projects FindProject(int projectId)
         {
             return db.Projects.Find(projectId);
         } 
@@ -22,25 +30,50 @@ namespace BugTracker.Helpers
 
         public static ICollection<ApplicationUser> GetAllUsersOnProject(int projectId)
         {
-            return FindProject(projectId).Users;
+            List<string> userIdList = db.ProjectUsers.Where(p => p.ProjectId == projectId).Select(u => u.UserId).ToList();
+            List<ApplicationUser> resultList = new List<ApplicationUser>();
+            foreach (string userId in userIdList)
+            {
+                resultList.Add(UserRolesHelper.GetUserById(userId));
+            }
+            return resultList;
         }
 
-        public static ICollection<Projects> GetAllProjectsForUser(string userId)
+        public static string[] GetAllUserIdsForProject(int projectId)
         {
-            List<Projects> allProjects = db.Projects.ToList();
-            List<Projects> allProjectsForUser = new List<Projects>();
+            return db.ProjectUsers.Where(p => p.ProjectId == projectId).Select(u => u.UserId).ToArray();
+        }
 
-            foreach (Projects project in allProjects)
+        //public static ICollection<Projects> GetAllProjectsForUser(string userId)
+        //{
+        //    List<Projects> allProjects = db.Projects.ToList();
+        //    List<Projects> allProjectsForUser = new List<Projects>();
+
+        //    foreach (Projects project in allProjects)
+        //    {
+        //        if (IsUserOnProject(userId, project.Id))
+        //        {
+        //            allProjectsForUser.Add(project);
+        //        }
+        //    }
+
+        //    return allProjectsForUser;
+        //}
+
+        public static List<Projects> GetAllProjectsForUser(string userId)
+        {
+            List<int> projectIdList = db.ProjectUsers.Where(p => p.UserId == userId).Select(p => p.ProjectId).ToList();
+            List<Projects> projectsList = new List<Projects>();
+            if (0 < projectIdList.Count)
             {
-                if (IsUserOnProject(userId, project.Id))
+                foreach (int projectId in projectIdList)
                 {
-                    allProjectsForUser.Add(project);
+                    projectsList.Add((Projects)db.Projects.Where(p => p.Id == projectId));
                 }
             }
 
-            return allProjectsForUser;
+            return projectsList;
         }
-
 
         public static bool AddUserToProject(string userId, int projectId)
         {

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using BugTracker.Authorization;
+using BugTracker.Helpers;
 
 namespace BugTracker.Controllers
 {
@@ -70,12 +71,16 @@ namespace BugTracker.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
+            Projects projectData = db.Projects.Find(id);
+            if (projectData == null)
             {
                 return HttpNotFound();
             }
-            return View(projects);
+            ProjectViewModel projectViewModel = new ProjectViewModel { Id = projectData.Id, Name = projectData.Name };
+            projectViewModel.AllUsers = new MultiSelectList(db.Users, Common.ID, Common.USER_NAME);
+            //projectViewModel.AssignedUsers = ProjectHelper.GetAllUsersOnProject(projectData.Id).Select(u => u.Id).ToArray();
+            projectViewModel.AssignedUsers = ProjectHelper.GetAllUserIdsForProject(projectData.Id);
+            return View(projectViewModel);
         }
 
         // POST: Projects/Edit/5

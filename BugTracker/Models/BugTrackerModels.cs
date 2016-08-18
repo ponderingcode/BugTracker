@@ -194,6 +194,7 @@ namespace BugTracker.Models
 
     public partial class ProjectUsers
     {
+        [Key]
         public int ProjectId { get; set; }
         public string UserId { get; set; }
     }

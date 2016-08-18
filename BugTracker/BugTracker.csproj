@@ -205,6 +205,7 @@
     <Compile Include="Models\BugTrackerModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -270,11 +271,11 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\SingleRoleIndex.cshtml" />
-    <Content Include="Views\Projects_old\Create.cshtml" />
-    <Content Include="Views\Projects_old\Delete.cshtml" />
-    <Content Include="Views\Projects_old\Details.cshtml" />
-    <Content Include="Views\Projects_old\Edit.cshtml" />
-    <Content Include="Views\Projects_old\Index.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\Edit_default.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Tickets\Create.cshtml" />
     <Content Include="Views\Tickets\Delete.cshtml" />
     <Content Include="Views\Tickets\Details.cshtml" />
@@ -283,7 +284,7 @@
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
