@@ -82,7 +82,6 @@ namespace BugTracker.Controllers
             }
             ProjectViewModel projectViewModel = new ProjectViewModel { Id = projectData.Id, Name = projectData.Name };
             projectViewModel.Users = new MultiSelectList(db.Users, Common.ID, Common.USER_NAME);
-            //projectViewModel.SelectedUsers = ProjectHelper.GetAllUserIdsForProject(projectData.Id).ToArray();
             projectViewModel.SelectedUsers = GetAllUserIdsForProject(projectData.Id).ToList();
             return View(projectViewModel);
         }
@@ -111,22 +110,29 @@ namespace BugTracker.Controllers
                 Projects projectData = db.Projects.Find(projectViewModel.Id);
                 var usersOnProject = GetAllUsersOnProject(projectData.Id).Select(u => u.Id);
 
-                //foreach (var userId in usersOnProject)
-                //{
-                //    if (!projectViewModel.SelectedUsers.Contains(userId))
-                //    {
-                //        ProjectHelper.RemoveUserFromProject(userId, projectData.Id);
-                //    }
-                //}
-
-                foreach (var userId in projectViewModel.SelectedUsers)
+                if (null == projectViewModel.SelectedUsers)
                 {
-                    if (!IsUserOnProject(userId, projectData.Id))
+                    RemoveAllUsersFromProject(projectData.Id);
+                }
+                else
+                {
+                    foreach (var userId in usersOnProject)
                     {
-                        AddUserToProject(userId, projectData.Id);
+                        if (!projectViewModel.SelectedUsers.Contains(userId))
+                        {
+                            RemoveUserFromProject(userId, projectData.Id);
+                        }
+                    }
+                    foreach (var userId in projectViewModel.SelectedUsers)
+                    {
+                        if (!IsUserOnProject(userId, projectData.Id))
+                        {
+                            AddUserToProject(userId, projectData.Id);
+                        }
                     }
                 }
-                db.SaveChanges();
+
+                //db.SaveChanges();
                 // navigate back to the roles index page
                 return RedirectToAction(Common.INDEX);
             }
@@ -196,11 +202,27 @@ namespace BugTracker.Controllers
         {
             if (!IsUserOnProject(userId, projectId))
             {
-                //ApplicationUser user = db.Users.Find(userId);
                 db.Projects.Find(projectId).Users.Add(db.Users.Find(userId));
                 db.SaveChanges();
             }
             return IsUserOnProject(userId, projectId);
+        }
+
+        public bool RemoveUserFromProject(string userId, int projectId)
+        {
+            if (IsUserOnProject(userId, projectId))
+            {
+                db.Projects.Find(projectId).Users.Remove(db.Users.Find(userId));
+                db.SaveChanges();
+            }
+            return !IsUserOnProject(userId, projectId);
+        }
+
+        public bool RemoveAllUsersFromProject(int projectId)
+        {
+            db.Projects.Find(projectId).Users.Clear();
+            db.SaveChanges();
+            return 0 == db.Projects.Find(projectId).Users.Count;
         }
 
         public ICollection<ApplicationUser> GetAllUsersOnProject(int projectId)

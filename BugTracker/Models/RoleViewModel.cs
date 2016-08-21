@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace BugTracker.Models
 {
@@ -7,6 +8,6 @@ namespace BugTracker.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public MultiSelectList Users { get; set; }
-        public string[] SelectedUsers { get; set; }
+        public List<string> SelectedUsers { get; set; }
     }
 }

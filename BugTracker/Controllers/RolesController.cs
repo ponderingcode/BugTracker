@@ -46,7 +46,7 @@ namespace BugTracker.Controllers
             }
             RoleViewModel roleViewModel = new RoleViewModel { Id = applicationIdentityRole.Id, Name = applicationIdentityRole.Name };
             roleViewModel.Users = new MultiSelectList(db.Users, Common.ID, Common.USER_NAME);
-            roleViewModel.SelectedUsers = UserRolesHelper.UsersInRole(applicationIdentityRole.Name).Select(u => u.Id).ToArray();
+            roleViewModel.SelectedUsers = UserRolesHelper.UsersInRole(applicationIdentityRole.Name).Select(u => u.Id).ToList();
             return View(roleViewModel);
         }
 
@@ -59,19 +59,26 @@ namespace BugTracker.Controllers
                 IdentityRole role = db.Roles.Find(roleViewModel.Id);
                 var usersInRole = UserRolesHelper.UsersInRole(roleViewModel.Name).Select(u => u.Id);
 
-                foreach (var userId in usersInRole)
+                if (null == roleViewModel.SelectedUsers)
                 {
-                    if (null != roleViewModel.SelectedUsers && !roleViewModel.SelectedUsers.Contains(userId))
-                    {
-                        await UserRolesHelper.RemoveUserFromRoleAsync(userId, roleViewModel.Name);
-                    }
+                    UserRolesHelper.RemoveAllUsersFromRole(roleViewModel.Name);
                 }
-
-                foreach (var userId in roleViewModel.SelectedUsers)
+                else
                 {
-                    if (!UserRolesHelper.IsUserInRole(userId, roleViewModel.Name))
+                    foreach (var userId in usersInRole)
                     {
-                        await UserRolesHelper.AddUserToRoleAsync(userId, roleViewModel.Name);
+                        if (null != roleViewModel.SelectedUsers && !roleViewModel.SelectedUsers.Contains(userId))
+                        {
+                            await UserRolesHelper.RemoveUserFromRoleAsync(userId, roleViewModel.Name);
+                        }
+                    }
+
+                    foreach (var userId in roleViewModel.SelectedUsers)
+                    {
+                        if (!UserRolesHelper.IsUserInRole(userId, roleViewModel.Name))
+                        {
+                            await UserRolesHelper.AddUserToRoleAsync(userId, roleViewModel.Name);
+                        }
                     }
                 }
 

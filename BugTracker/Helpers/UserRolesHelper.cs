@@ -82,6 +82,15 @@ namespace BugTracker.Helpers
             return result.Succeeded;
         }
 
+        public static bool RemoveAllUsersFromRole(string roleName)
+        {
+            foreach (ApplicationUser user in UsersInRole(roleName))
+            {
+                manager.RemoveFromRole(user.Id, roleName);
+            }
+            return 0 == UsersInRole(roleName).Count;
+        }
+
         public static ICollection<ApplicationUser> UsersInRole(string roleName)
         {
             List<ApplicationUser> resultList = new List<ApplicationUser>();
