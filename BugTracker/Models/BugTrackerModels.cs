@@ -87,7 +87,7 @@ namespace BugTracker.Models
         [Required]
         public string Comment { get; set; }
 
-        public DateTimeOffset Created { get; set; }
+        public System.DateTimeOffset Created { get; set; }
         public int TicketId { get; set; }
         public string UserId { get; set; }
 
@@ -190,13 +190,6 @@ namespace BugTracker.Models
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Tickets> Tickets { get; set; }
-    }
-
-    public partial class ProjectUsers
-    {
-        [Key]
-        public int ProjectId { get; set; }
-        public string UserId { get; set; }
     }
 
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace BugTracker.Models
@@ -11,8 +7,7 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public MultiSelectList AllUsers { get; set; }
-        [Display(Name = "Assigned Users")]
-        public string[] AssignedUsers { get; set; }
+        public MultiSelectList Users { get; set; }
+        public List<string> SelectedUsers { get; set; }
     }
 }

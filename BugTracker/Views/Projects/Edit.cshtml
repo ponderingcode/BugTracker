@@ -1,7 +1,12 @@
 ﻿@model BugTracker.Models.ProjectViewModel
+@using BugTracker.Models
+@using BugTracker.Helpers
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
 
 @{
     ViewBag.Title = "Edit";
+    string userId = User.Identity.GetUserId();
 }
 
 <h2>Edit</h2>
@@ -11,11 +16,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProjectViewModel</h4>
+        <h4>@ViewBag.projectName</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
+    @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+    {
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -23,12 +30,17 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Name)
+    }
 
         <div class="form-group">
-            Users (selecting or deselecting a user or users will assign or unassign the role when you press save)
+            Users (selecting or deselecting a user or users will assign or unassign them to the project when you press save)
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.AssignedUsers, Model.AllUsers, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AssignedUsers, "", new { @class = "text-danger" })
+                @Html.ListBoxFor(model => model.SelectedUsers, Model.Users, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedUsers, "", new { @class = "text-danger" })
             </div>
         </div>
 

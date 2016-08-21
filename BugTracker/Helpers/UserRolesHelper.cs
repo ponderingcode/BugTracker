@@ -146,10 +146,5 @@ namespace BugTracker.Helpers
         {
             return manager.FindById(userId);
         }
-
-        public static string GetUserIdByEmail(string userEmail)
-        {
-            return manager.FindByEmail(userEmail).Id;
-        }
     }
 }

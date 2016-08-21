@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using BugTracker.Models;
 using BugTracker.Authorization;
 using BugTracker.Helpers;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
@@ -16,9 +19,9 @@ namespace BugTracker.Controllers
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         // GET: Projects
-        [Authorize(Roles = Role.ADMINISTRATOR)]
+        [Authorize(Roles = Role.ADMINISTRATOR + "," + Role.PROJECT_MANAGER)]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
@@ -36,6 +39,7 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(projects);
         }
 
@@ -64,7 +68,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
-        [Authorize(Roles = Role.ADMINISTRATOR)]
+        [Authorize(Roles = Role.ADMINISTRATOR + "," + Role.PROJECT_MANAGER)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,26 +81,56 @@ namespace BugTracker.Controllers
                 return HttpNotFound();
             }
             ProjectViewModel projectViewModel = new ProjectViewModel { Id = projectData.Id, Name = projectData.Name };
-            projectViewModel.AllUsers = new MultiSelectList(db.Users, Common.ID, Common.USER_NAME);
-            //projectViewModel.AssignedUsers = ProjectHelper.GetAllUsersOnProject(projectData.Id).Select(u => u.Id).ToArray();
-            projectViewModel.AssignedUsers = ProjectHelper.GetAllUserIdsForProject(projectData.Id);
+            projectViewModel.Users = new MultiSelectList(db.Users, Common.ID, Common.USER_NAME);
+            //projectViewModel.SelectedUsers = ProjectHelper.GetAllUserIdsForProject(projectData.Id).ToArray();
+            projectViewModel.SelectedUsers = GetAllUserIdsForProject(projectData.Id).ToList();
             return View(projectViewModel);
         }
 
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate")] Projects projects)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(projects).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(projects);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate")] Projects projects)
+        public ActionResult Edit(ProjectViewModel projectViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(projects).State = EntityState.Modified;
+                Projects projectData = db.Projects.Find(projectViewModel.Id);
+                var usersOnProject = GetAllUsersOnProject(projectData.Id).Select(u => u.Id);
+
+                //foreach (var userId in usersOnProject)
+                //{
+                //    if (!projectViewModel.SelectedUsers.Contains(userId))
+                //    {
+                //        ProjectHelper.RemoveUserFromProject(userId, projectData.Id);
+                //    }
+                //}
+
+                foreach (var userId in projectViewModel.SelectedUsers)
+                {
+                    if (!IsUserOnProject(userId, projectData.Id))
+                    {
+                        AddUserToProject(userId, projectData.Id);
+                    }
+                }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                // navigate back to the roles index page
+                return RedirectToAction(Common.INDEX);
             }
-            return View(projects);
+            return View(projectViewModel);
         }
 
         // GET: Projects/Delete/5
@@ -133,6 +167,66 @@ namespace BugTracker.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        //
+        // Helper functions
+        //
+
+        public Projects FindProject(int projectId)
+        {
+            return db.Projects.Find(projectId);
+        }
+
+        public bool IsUserOnProject(string userId, int projectId)
+        {
+            List<ApplicationUser> projectUsers = db.Projects.Find(projectId).Users.ToList();
+            foreach (ApplicationUser user in projectUsers)
+            {
+                if (user.Id == userId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool AddUserToProject(string userId, int projectId)
+        {
+            if (!IsUserOnProject(userId, projectId))
+            {
+                //ApplicationUser user = db.Users.Find(userId);
+                db.Projects.Find(projectId).Users.Add(db.Users.Find(userId));
+                db.SaveChanges();
+            }
+            return IsUserOnProject(userId, projectId);
+        }
+
+        public ICollection<ApplicationUser> GetAllUsersOnProject(int projectId)
+        {
+            return db.Projects.Find(projectId).Users.ToList();
+        }
+
+        public ICollection<string> GetAllUserIdsForProject(int projectId)
+        {
+            return db.Projects.Find(projectId).Users.Select(u => u.Id).ToList();
+        }
+
+        public List<Projects> GetAllProjectsForUser(string userId)
+        {
+            List<Projects> projects = new List<Projects>();
+            foreach (Projects project in db.Projects.ToList())
+            {
+                foreach (ApplicationUser user in project.Users)
+                {
+                    if (user.Id == userId)
+                    {
+                        projects.Add(project);
+                    }
+                }
+            }
+            return projects;
         }
     }
 }

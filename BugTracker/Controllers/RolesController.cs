@@ -61,7 +61,7 @@ namespace BugTracker.Controllers
 
                 foreach (var userId in usersInRole)
                 {
-                    if (!roleViewModel.SelectedUsers.Contains(userId))
+                    if (null != roleViewModel.SelectedUsers && !roleViewModel.SelectedUsers.Contains(userId))
                     {
                         await UserRolesHelper.RemoveUserFromRoleAsync(userId, roleViewModel.Name);
                     }
