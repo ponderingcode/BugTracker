@@ -1,17 +1,10 @@
-﻿using System;
+﻿using BugTracker.Authorization;
+using BugTracker.Models;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using BugTracker.Models;
-using BugTracker.Authorization;
-using BugTracker.Helpers;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
@@ -89,18 +82,6 @@ namespace BugTracker.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate")] Projects projects)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(projects).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(projects);
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProjectViewModel projectViewModel)
@@ -131,8 +112,6 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
-
-                //db.SaveChanges();
                 // navigate back to the roles index page
                 return RedirectToAction(Common.INDEX);
             }

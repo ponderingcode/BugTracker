@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using BugTracker.Helpers;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using BugTracker.Helpers;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
@@ -81,8 +79,6 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
-
-                // navigate back to the roles index page
                 return RedirectToAction(Common.INDEX);
             }
             return View(roleViewModel);
