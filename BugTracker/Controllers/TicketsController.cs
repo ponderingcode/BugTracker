@@ -10,6 +10,7 @@ using BugTracker.Models;
 using BugTracker.Authorization;
 using Microsoft.AspNet.Identity;
 using BugTracker.Helpers;
+using System.IO;
 
 namespace BugTracker.Controllers
 {
@@ -115,24 +116,48 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Created,Updated,TicketStatusId,TicketPriorityId,TicketTypeId,ProjectId,OwnerUserId,AssignedToUserId")] Tickets tickets)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Created,Updated,TicketStatusId,TicketPriorityId,TicketTypeId,ProjectId,OwnerUserId,AssignedToUserId")] Tickets ticket, HttpPostedFileBase image)
         {
+            if (null != image && 0 < image.ContentLength)
+            {
+                string ext = Path.GetExtension(image.FileName).ToLower();
+                if (FileType.BMP != ext &&
+                    FileType.GIF != ext &&
+                    FileType.JPG != ext &&
+                    FileType.JPEG != ext &&
+                    FileType.PNG != ext)
+                {
+                    ModelState.AddModelError("image", "Invalid Format.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                tickets.Created = DateTimeOffset.Now;
-                tickets.OwnerUserId = User.Identity.GetUserId();
-                db.Tickets.Add(tickets);
+                ticket.Created = DateTimeOffset.Now;
+
+                if (null != image)
+                {
+                    TicketAttachments ticketAttachment = new TicketAttachments();
+                    string filePath = "/Uploads/"; // relative server path
+                    string absPath = Server.MapPath("~" + filePath); // path on physical drive on server
+                    ticketAttachment.FileURL = filePath + image.FileName; // media URL for relative path
+                    image.SaveAs(Path.Combine(absPath, image.FileName));
+                    ticket.TicketAttachments.Add(ticketAttachment);
+                }
+
+                ticket.OwnerUserId = User.Identity.GetUserId();
+                db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", tickets.AssignedToUserId);
-            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", tickets.OwnerUserId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", tickets.ProjectId);
-            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", tickets.TicketPriorityId);
-            ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", tickets.TicketStatusId);
-            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", tickets.TicketTypeId);
-            return View(tickets);
+            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
+            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", ticket.OwnerUserId);
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
+            ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
+            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
+            return View(ticket);
         }
 
         // GET: Tickets/Edit/5
@@ -199,6 +224,7 @@ namespace BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Need to check for attachments and delete those prior to deleting a ticket
             Tickets tickets = db.Tickets.Find(id);
             db.Tickets.Remove(tickets);
             db.SaveChanges();

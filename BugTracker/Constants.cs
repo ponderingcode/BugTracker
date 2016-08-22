@@ -74,6 +74,7 @@ namespace BugTracker
         public const string DETAILS = "Details";
         public const string EDIT = "Edit";
         public const string INDEX = "Index";
+        public const string MULTIPART_FORM_DATA = "Multipart/form-data";
     }
 
     public static class ControllerName
@@ -84,5 +85,14 @@ namespace BugTracker
         public const string PROJECTS = "Projects";
         public const string TICKETS = "Tickets";
         public const string ROLES = "Roles";
+    }
+
+    public static class FileType
+    {
+        public const string BMP = ".bmp";
+        public const string GIF = ".gif";
+        public const string JPG = ".jpg";
+        public const string JPEG = ".jpeg";
+        public const string PNG = ".png";
     }
 }

@@ -1,5 +1,5 @@
 ﻿@model BugTracker.Models.Tickets
-
+@using BugTracker.Models
 @{
     ViewBag.Title = "Details";
 }
@@ -9,6 +9,10 @@
 <div>
     <h4>Tickets</h4>
     <hr />
+    @foreach (TicketAttachments ticketAttachment in Model.TicketAttachments)
+    {
+        <img class="img-responsive" src="@ticketAttachment.FileURL"/>
+    }
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
