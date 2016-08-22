@@ -5,6 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using BugTracker.Helpers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
@@ -14,10 +17,29 @@ namespace BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        [Authorize(Roles = Role.ADMINISTRATOR + "," + Role.PROJECT_MANAGER)]
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            List<Projects> projects = new List<Projects>();
+            string userId = User.Identity.GetUserId();
+            if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+            {
+                projects = db.Projects.ToList();
+            }
+            else
+            {
+                foreach (Projects project in db.Projects.ToList())
+                {
+                    foreach (ApplicationUser user in project.Users)
+                    {
+                        if (user.Id == userId)
+                        {
+                            projects.Add(project);
+                        }
+                    }
+                }
+            }
+
+            return View(projects);
         }
 
         // GET: Projects/Details/5

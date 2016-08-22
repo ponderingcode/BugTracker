@@ -198,6 +198,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ProjectHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -284,6 +285,7 @@
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Tickets\TicketsAssignedToDeveloper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

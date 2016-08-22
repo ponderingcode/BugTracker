@@ -28,16 +28,22 @@ namespace BugTracker.Models
 
         public DateTimeOffset? Updated { get; set; }
 
+        [Display(Name = "Ticket Status")]
         public int? TicketStatusId { get; set; }
 
+        [Display(Name = "Ticket Priority")]
         public int? TicketPriorityId { get; set; }
 
+        [Display(Name = "Ticket Type")]
         public int? TicketTypeId { get; set; }
 
+        [Display(Name = "Project")]
         public int? ProjectId { get; set; }
 
+        [Display(Name = "Owner")]
         public string OwnerUserId { get; set; }
 
+        [Display(Name = "Assignee")]
         public string AssignedToUserId { get; set; }
 
         //--- Navigation Properties  ---//

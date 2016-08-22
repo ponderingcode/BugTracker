@@ -1,0 +1,20 @@
+﻿@model IEnumerable<BugTracker.Models.Tickets>
+
+@{
+    ViewBag.Title = "My Tickets";
+}
+
+<h2>Tickets Assigned to Me</h2>
+
+<table class="table">
+    @foreach (var ticket in ViewBag.Tickets)
+    {
+        <tr>
+            <td>
+                @ticket
+            </td>
+        </tr>
+    }
+    @Html.ActionLink("Back to List", "Index")
+
+</table>

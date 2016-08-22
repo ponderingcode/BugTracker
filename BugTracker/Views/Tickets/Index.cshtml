@@ -1,39 +1,46 @@
 ﻿@model IEnumerable<BugTracker.Models.Tickets>
+@using BugTracker.Helpers
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
+    string userId = User.Identity.GetUserId();
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Ticket", "Create")
+    @if (UserRolesHelper.IsUserInRole(userId, Role.DEVELOPER))
+    {
+        <span> | </span>@Html.ActionLink("View Tickets Assigned To Me", "TicketsAssignedToDeveloper")
+    }
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketPriority.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketStatus.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project)
+        </th>
+        <th>
+            Priority
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Assignee
+        </th>
+        <th>
+            Owner
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Created)
@@ -47,10 +54,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AssignedToUser.FirstName)
+            @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OwnerUser.FirstName)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Project.Name)
@@ -65,10 +72,10 @@
             @Html.DisplayFor(modelItem => item.TicketType.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.DisplayFor(modelItem => item.AssignedToUser.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.OwnerUser.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Created)

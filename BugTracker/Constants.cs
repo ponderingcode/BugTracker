@@ -1,4 +1,7 @@
-﻿namespace BugTracker
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace BugTracker
 {
     public static class Role
     {
@@ -13,21 +16,53 @@
         public const string STAKEHOLDERS = ADMINISTRATOR + "," + PROJECT_MANAGER + "," + DEVELOPER;
     }
 
-    public static class Priority
+    public static class PriorityName
     {
         public const string LOW = "Low";
         public const string MEDIUM = "Medium";
         public const string HIGH = "High";
+
+        public static List<string> AsDataProvider = new List<string>()
+        {
+            LOW,
+            MEDIUM,
+            HIGH
+        };
     }
 
-    public static class Status
+    public static class StatusName
     {
         public const string SUBMITTED = "Submitted";
-        public const string QA = "QA";
-        public const string PENDING_APPROVAL = "PendingApproval";
+        public const string IN_QA = "In QA";
+        public const string IN_DEVELOPMENT = "In Development";
+        public const string PENDING_APPROVAL = "Pending Approval";
         public const string APPROVED = "Approved";
         public const string REJECTED = "Rejected";
         public const string UNASSIGNED = "Unassigned";
+        public const string CLOSED = "Closed";
+
+        public static List<string> AsDataProvider = new List<string>()
+        {
+            SUBMITTED,
+            PENDING_APPROVAL,
+            APPROVED,
+            REJECTED,
+            IN_DEVELOPMENT,
+            IN_QA,
+            CLOSED
+        };
+    }
+
+    public static class TicketTypeName
+    {
+        public const string BUG = "Bug";
+        public const string FEATURE_REQUEST = "Feature Request";
+
+        public static List<string> AsDataProvider = new List<string>()
+        {
+            BUG,
+            FEATURE_REQUEST
+        };
     }
 
     public static class Common

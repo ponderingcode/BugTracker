@@ -6,10 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BugTracker.Authorization;
 
 namespace BugTracker.Controllers
 {
-    [Authorize(Roles = Role.ADMINISTRATOR)]
+    [VerboseAuthorize(Roles = Role.ADMINISTRATOR)]
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
