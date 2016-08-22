@@ -172,6 +172,9 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
+           
+            ViewBag.Created = tickets.Created;
+            ViewBag.Updated = DateTimeOffset.Now;
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", tickets.AssignedToUserId);
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", tickets.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", tickets.ProjectId);
@@ -200,6 +203,7 @@ namespace BugTracker.Controllers
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", tickets.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", tickets.TicketStatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", tickets.TicketTypeId);
+            tickets.Updated = DateTimeOffset.Now;
             return View(tickets);
         }
 
@@ -226,6 +230,14 @@ namespace BugTracker.Controllers
         {
             // Need to check for attachments and delete those prior to deleting a ticket
             Tickets tickets = db.Tickets.Find(id);
+            if (0 < tickets.TicketAttachments.Count)
+            {
+                tickets.TicketAttachments.Clear();
+                //foreach (TicketAttachments ticketAttachment in tickets)
+                //{
+
+                //}
+            }
             db.Tickets.Remove(tickets);
             db.SaveChanges();
             return RedirectToAction("Index");

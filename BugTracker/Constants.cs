@@ -75,6 +75,7 @@ namespace BugTracker
         public const string EDIT = "Edit";
         public const string INDEX = "Index";
         public const string MULTIPART_FORM_DATA = "Multipart/form-data";
+        public const string NOT_IN_USE = "Not In Use";
     }
 
     public static class ControllerName

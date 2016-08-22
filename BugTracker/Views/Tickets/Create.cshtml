@@ -9,11 +9,11 @@
 @using (Html.BeginForm(Common.CREATE, ControllerName.TICKETS, FormMethod.Post, new { enctype = Common.MULTIPART_FORM_DATA }))
 {
     @Html.AntiForgeryToken()
-                @Html.HiddenFor(model => model.AssignedToUserId)
-                @Html.HiddenFor(model => model.TicketStatusId)
-                @Html.HiddenFor(model => model.TicketPriorityId)
-                @Html.HiddenFor(model => model.TicketTypeId)
-                @Html.HiddenFor(model => model.Updated)
+    @Html.HiddenFor(model => model.AssignedToUserId)
+    @Html.HiddenFor(model => model.TicketStatusId)
+    @Html.HiddenFor(model => model.TicketPriorityId)
+    @Html.HiddenFor(model => model.TicketTypeId)
+    @Html.HiddenFor(model => model.Updated)
 
     <div class="form-horizontal">
         <h4>Tickets</h4>
