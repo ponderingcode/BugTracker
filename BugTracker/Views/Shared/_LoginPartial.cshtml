@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Microsoft.AspNet.Identity.EntityFramework
 @using BugTracker.Models
-@if (Request.IsAuthenticated)
+@if (null != HttpContext.Current.User && HttpContext.Current.User.Identity.IsAuthenticated)
 {
     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
     var user = manager.FindById(User.Identity.GetUserId());

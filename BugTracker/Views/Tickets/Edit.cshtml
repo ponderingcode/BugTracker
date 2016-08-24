@@ -25,16 +25,16 @@
         @foreach (TicketAttachments ticketAttachment in Model.TicketAttachments)
         {
             <img class="img-responsive" src="@ticketAttachment.FileURL" />
-        }
-        <div class="form-group">
-            @Html.LabelFor(model => model.TicketAttachments, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <!-- Image Upload -->
-                <input id="fileUpload" name="image" type="file" class="form-control" />
-                @Html.EditorFor(model => model.TicketAttachments, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TicketAttachments, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <!-- Image Upload -->
+                    <input id="fileUpload" name="image" type="file" class="form-control" />
+                    <input value="@ticketAttachment.FileURL" />
+                    @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
