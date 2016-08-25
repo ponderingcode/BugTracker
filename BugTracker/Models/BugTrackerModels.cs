@@ -2,10 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-
+using System.Reflection;
+using System.Linq;
 
 namespace BugTracker.Models
 {
+    public static class ModelsHelper
+    {
+        public static List<Type> GetListOfAllModels()
+        {
+            return Assembly.GetExecutingAssembly().GetTypes().Where(t => string.Equals(t.Namespace, "BugTracker.Models", StringComparison.Ordinal)).ToList();
+        }
+    }
+
     /*
     public partial class Tickets
     {
