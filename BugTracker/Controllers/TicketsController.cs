@@ -233,10 +233,6 @@ namespace BugTracker.Controllers
             if (0 < tickets.TicketAttachments.Count)
             {
                 tickets.TicketAttachments.Clear();
-                //foreach (TicketAttachments ticketAttachment in tickets)
-                //{
-
-                //}
             }
             db.Tickets.Remove(tickets);
             db.SaveChanges();

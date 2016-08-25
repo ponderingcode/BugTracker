@@ -18,8 +18,28 @@ namespace BugTracker.Models
         }
 
         public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
+
+        //private string title;
+        //[Required]
+        //public string Title
+        //{
+        //    get
+        //    {
+        //        return title;
+        //    }
+        //    set
+        //    {
+        //        if (value != title)
+        //        {
+        //            title = value;
+        //            NotifyPropertyChanged(Common.TITLE);
+        //        }
+        //    }
+        //}
+
         [Required]
         [AllowHtml]
         public string Description { get; set; }
@@ -68,6 +88,13 @@ namespace BugTracker.Models
 
         public virtual ApplicationUser AssignedToUser { get; set; }
 
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //private void NotifyPropertyChanged(string propertyName)
+        //{
+        //    //Raise PropertyChanged event
+        //    //PropertyChanged.BeginInvoke(this, )
+        //}
     }
 
 
