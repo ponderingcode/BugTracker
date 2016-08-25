@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
-
+    /*
     public partial class Tickets
     {
         public Tickets()
@@ -96,7 +96,7 @@ namespace BugTracker.Models
         //    //PropertyChanged.BeginInvoke(this, )
         //}
     }
-
+    */
 
     public partial class TicketAttachments
     {

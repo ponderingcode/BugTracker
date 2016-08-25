@@ -53,6 +53,8 @@ namespace BugTracker.Models
             return new ApplicationDbContext();
         }
 
+        public DbSet<Audit> Audit { get; set; }
+
         public DbSet<Tickets> Tickets { get; set; }
 
         public DbSet<Projects> Projects { get; set; }
