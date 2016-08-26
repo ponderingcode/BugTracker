@@ -5232,6 +5232,7 @@
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\avatar7.jpg" />
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\avatar8.jpg" />
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\avatar9.jpg" />
+    <Content Include="metronic_4.6\theme\assets\layouts\layout\img\btLogo.png" />
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\hor-menu-red-arrow.png" />
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\icon-color-close.png" />
     <Content Include="metronic_4.6\theme\assets\layouts\layout\img\icon-color.png" />
