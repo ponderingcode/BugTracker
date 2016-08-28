@@ -79,6 +79,8 @@ namespace BugTracker
         public const string INDEX = "Index";
         public const string MULTIPART_FORM_DATA = "Multipart/form-data";
         public const string NOT_IN_USE = "Not In Use";
+        public const string NAVIGATION_CSS_CLASS_ACTIVE = "nav-item active";
+        public const string NAVIGATION_CSS_CLASS_INACTIVE = "nav-item";
     }
 
     public static class ControllerName
