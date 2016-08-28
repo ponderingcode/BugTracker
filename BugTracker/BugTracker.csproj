@@ -6716,7 +6716,8 @@
     <Content Include="Views\Tickets\TicketsAssignedToDeveloper.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Register_OLD.cshtml" />
+    <Content Include="Views\Account\ForgotPassword_OLD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

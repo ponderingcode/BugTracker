@@ -1,59 +1,120 @@
-﻿@model BugTracker.Models.RegisterViewModel
-@{
-    ViewBag.Title = "Register";
+﻿@{
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
+@using BugTracker.Models
+@model RegisterViewModel
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
+<head>
+    <meta charset="utf-8" />
+    <title>BugTracker | Sign In</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="~/metronic_4.7/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/metronic_4.7/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/metronic_4.7/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/metronic_4.7/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<body class=" login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="@Url.Action(Common.INDEX, ControllerName.HOME)">
+            <img src="~/metronic_4.7/assets/layouts/layout/img/btLogo.png" alt="" />
+        </a>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+    <!-- END LOGO -->
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="content">
+            <!-- BEGIN REGISTRATION FORM -->
+            <h3 class="font-green">Register</h3>
+            <p class="hint"> Enter your personal details below: </p>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">First Name</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="First Name" name="FirstName" />
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Last Name" name="LastName" />
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Display Name</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Display Name" name="DisplayName" />
+            </div>
+            <div class="form-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Email</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="Email" />
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="Password" />
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Re-type Your Password" name="ConfirmPassword" />
+            </div>
+            <div class="form-actions">
+                <a id="register-back-btn" class="btn green btn-outline" href="@Url.Action(Common.INDEX, ControllerName.HOME)">Cancel</a>
+                <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">Submit</button>
+            </div>
+            <div class="create-account">
+               
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    }
+        <!-- END REGISTRATION FORM -->
+            <div class="copyright"> 2016 © Ryan Fleming </div>
+            <!--[if lt IE 9]>
+            <script src="~/metronic_4.7/assets/global/plugins/respond.min.js"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/excanvas.min.js"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/ie8.fix.min.js"></script>
+            <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+            <script src="~/metronic_4.7/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="~/metronic_4.7/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+            <script src="~/metronic_4.7/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="~/metronic_4.7/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="~/metronic_4.7/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
+</html>
