@@ -217,6 +217,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\DataTables\jquery.DataTables.min.css" />
+    <Content Include="assets\DataTables\jquery.dataTables.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -6718,6 +6720,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register_OLD.cshtml" />
     <Content Include="Views\Account\ForgotPassword_OLD.cshtml" />
+    <Content Include="Views\Projects\Index_OLD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
