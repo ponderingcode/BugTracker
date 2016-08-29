@@ -426,6 +426,12 @@ namespace BugTracker.Controllers
             return View(model);
         }
 
+        public ActionResult IndiscriminateLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         //
         // POST: /Account/LogOff
         [HttpPost]
