@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
-    public partial class Tickets
+    public partial class Tickets : INotifyPropertyChanged
     {
         public Tickets()
         {
@@ -20,6 +21,26 @@ namespace BugTracker.Models
 
         [Required]
         public string Title { get; set; }
+
+        //private string title;
+
+        //[Required]
+        //public string Title
+        //{
+        //    get
+        //    {
+        //        return title;
+        //    }
+        //    set
+        //    {
+        //        string previousValue = title ?? string.Empty;
+        //        if (!previousValue.Equals(value))
+        //        {
+        //            OnPropertyChanged("Title");
+        //        }
+        //        title = value;
+        //    }
+        //}
 
         [Required]
         [AllowHtml]
@@ -48,6 +69,13 @@ namespace BugTracker.Models
         public string AssignedToUserId { get; set; }
 
         public bool Deleted { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         //--- Navigation Properties  ---//
 

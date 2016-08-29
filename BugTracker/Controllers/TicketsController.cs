@@ -1,19 +1,16 @@
-﻿using System;
+﻿using BugTracker.Authorization;
+using BugTracker.Helpers;
+using BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BugTracker.Models;
-using BugTracker.Authorization;
-using Microsoft.AspNet.Identity;
-using BugTracker.Helpers;
-using System.IO;
-using Newtonsoft.Json;
-using KellermanSoftware.CompareNetObjects;
-using System.Xml.Serialization;
 
 namespace BugTracker.Controllers
 {
@@ -198,7 +195,33 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tickets).State = EntityState.Modified;
+
+                Tickets original = db.Tickets.Find(tickets.Id);
+                List<TicketHistories> changes = new List<TicketHistories>();
+
+                // Basic functionality for interview. This will be improved.
+                if (original.Title != tickets.Title)
+                {
+                    TicketHistories historyEntry = new TicketHistories();
+                    historyEntry.Changed = true;
+                    historyEntry.Property = "Title";
+                    historyEntry.OldValue = original.Title;
+                    historyEntry.NewValue = tickets.Title;
+                    historyEntry.TicketId = tickets.Id;
+                    historyEntry.UserId = tickets.AssignedToUserId;
+                    historyEntry.User = tickets.AssignedToUser;
+                    //tickets.Histories.Add(historyEntry);
+                    changes.Add(historyEntry);
+                }
+                foreach (TicketHistories change in changes)
+                {
+                    //tickets.Histories.Add(change);
+                    db.Histories.Add(change);
+                }
+                // Look into this: https://msdn.microsoft.com/en-us/library/system.data.entitystate(v=vs.110).aspx
+                //db.Entry(tickets).State = EntityState.Modified;
+                original.Title = tickets.Title;
+                original.Updated = DateTimeOffset.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
