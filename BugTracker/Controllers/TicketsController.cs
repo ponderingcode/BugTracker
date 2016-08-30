@@ -94,6 +94,10 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.CurrentUser = User.Identity.GetUserId();
+            }
             return View(tickets);
         }
 

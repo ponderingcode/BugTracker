@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Microsoft.AspNet.Identity.EntityFramework
 @using BugTracker.Models
+
+@* GET RID OF THIS & GET USER INFO VIA VIEWBAG *@
 @if (null != HttpContext.Current.User && HttpContext.Current.User.Identity.IsAuthenticated)
 {
     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));

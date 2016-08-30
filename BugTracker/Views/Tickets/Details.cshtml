@@ -78,6 +78,11 @@
         }
     </dl>
     @Html.Partial("_TicketHistory", Model.Histories)
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("_AddComment", new TicketComments() { TicketId = Model.Id, Created = DateTimeOffset.Now, UserId = ViewBag.CurrentUser })
+    }
+    @Html.Partial("_Comments", Model.TicketComments)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

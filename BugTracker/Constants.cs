@@ -90,6 +90,7 @@ namespace BugTracker
         public const string MANAGE = "Manage";
         public const string PROJECTS = "Projects";
         public const string TICKETS = "Tickets";
+        public const string TICKET_COMMENTS = "TicketComments";
         public const string ROLES = "Roles";
     }
 
