@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
-    public partial class Tickets : INotifyPropertyChanged
+    public partial class Tickets
     {
         public Tickets()
         {
@@ -69,13 +69,6 @@ namespace BugTracker.Models
         public string AssignedToUserId { get; set; }
 
         public bool Deleted { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         //--- Navigation Properties  ---//
 

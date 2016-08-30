@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -195,33 +196,30 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                Tickets original = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == tickets.Id);
+                List<PropertyInfo> propertyInfoList = tickets.GetType().GetProperties().ToList();
 
-                Tickets original = db.Tickets.Find(tickets.Id);
-                List<TicketHistories> changes = new List<TicketHistories>();
-
-                // Basic functionality for interview. This will be improved.
-                if (original.Title != tickets.Title)
+                foreach (PropertyInfo propertyInfo in propertyInfoList)
                 {
-                    TicketHistories historyEntry = new TicketHistories();
-                    historyEntry.Changed = true;
-                    historyEntry.Property = "Title";
-                    historyEntry.OldValue = original.Title;
-                    historyEntry.NewValue = tickets.Title;
-                    historyEntry.TicketId = tickets.Id;
-                    historyEntry.UserId = tickets.AssignedToUserId;
-                    historyEntry.User = tickets.AssignedToUser;
-                    //tickets.Histories.Add(historyEntry);
-                    changes.Add(historyEntry);
+                    // Needs cleanup
+                    var oldValue = original.GetType().GetProperty(propertyInfo.Name)?.GetValue(original, null);
+                    var newValue = tickets.GetType().GetProperty(propertyInfo.Name)?.GetValue(tickets, null);
+                    string strOldValue = oldValue?.ToString() ?? string.Empty;
+                    string strNewValue = newValue?.ToString() ?? string.Empty;
+                    if (!strOldValue.Equals(strNewValue) && !strNewValue.Equals(string.Empty))
+                    {
+                        TicketHistories historyEntry = new TicketHistories()
+                        {
+                            TicketId = tickets.Id,
+                            Property = propertyInfo.Name,
+                            OldValue = strOldValue,
+                            NewValue = strNewValue,
+                            UserId = tickets.AssignedToUserId
+                        };
+                        db.Histories.Add(historyEntry);
+                    }
                 }
-                foreach (TicketHistories change in changes)
-                {
-                    //tickets.Histories.Add(change);
-                    db.Histories.Add(change);
-                }
-                // Look into this: https://msdn.microsoft.com/en-us/library/system.data.entitystate(v=vs.110).aspx
-                //db.Entry(tickets).State = EntityState.Modified;
-                original.Title = tickets.Title;
-                original.Updated = DateTimeOffset.Now;
+                db.Entry(tickets).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
