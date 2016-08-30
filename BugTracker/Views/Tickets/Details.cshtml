@@ -7,7 +7,6 @@
 <h2>Details</h2>
 
 <div>
-    <a href="#" onclick="GetAuditHistory(@Model.Id)"><h4>History</h4></a>
     <hr />
     @foreach (TicketAttachments ticketAttachment in Model.TicketAttachments)
     {
@@ -78,52 +77,10 @@
             </dd>
         }
     </dl>
+    @Html.Partial("_TicketHistory", Model.Histories)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<!-- Modal HTML -->
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Audit history</h4>
-            </div>
-            <div class="modal-body">
-                <div id="audit"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function GetAuditHistory(recordID) {
-        $("#audit").html("");
-        var AuditDisplay = "<table class='table table-condensed' cellpadding='5'>";
-
-            for (var i = 0; i < AuditTrail.length; i++) {
-                AuditDisplay = AuditDisplay + "<tr class='active'><td colspan='2'>Event date: " + AuditTrail[i].DateTimeStamp + "</td>";
-                AuditDisplay = AuditDisplay + "<td>Action type: " + AuditTrail[i].AuditActionTypeName + "</td></tr>";
-                AuditDisplay = AuditDisplay + "<tr class='text-warning'><td>Field name</td><td>Before change</td><td>After change</td></tr>";
-                for (var j = 0; j < AuditTrail[i].Changes.length; j++) {
-                    AuditDisplay = AuditDisplay + "<tr>";
-                    AuditDisplay = AuditDisplay + "<td>" + AuditTrail[i].Changes[j].FieldName + "</td>";
-                    AuditDisplay = AuditDisplay + "<td>" + AuditTrail[i].Changes[j].ValueBefore + "</td>";
-                    AuditDisplay = AuditDisplay + "<td>" + AuditTrail[i].Changes[j].ValueAfter + "</td>";
-                    AuditDisplay = AuditDisplay + "</tr>";
-                }
-            }
-            AuditDisplay = AuditDisplay + "</table>" >
-            $("#audit").html(AuditDisplay);
-            $("#myModal").modal('show');
-
-
-        });
-    }
-</script>
