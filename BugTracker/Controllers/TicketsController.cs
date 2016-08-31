@@ -2,6 +2,7 @@
 using BugTracker.Helpers;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity;
+using SendGrid;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -210,6 +212,7 @@ namespace BugTracker.Controllers
                     var newValue = tickets.GetType().GetProperty(propertyInfo.Name)?.GetValue(tickets, null);
                     string strOldValue = oldValue?.ToString() ?? string.Empty;
                     string strNewValue = newValue?.ToString() ?? string.Empty;
+
                     if (!strOldValue.Equals(strNewValue) && !strNewValue.Equals(string.Empty))
                     {
                         TicketHistories historyEntry = new TicketHistories()
@@ -221,6 +224,11 @@ namespace BugTracker.Controllers
                             UserId = tickets.AssignedToUserId
                         };
                         db.Histories.Add(historyEntry);
+
+                        if (propertyInfo.Name.Equals("AssignedToUserId"))
+                        {
+                            CreateNotification(historyEntry);
+                        }
                     }
                 }
                 db.Entry(tickets).State = EntityState.Modified;
@@ -276,6 +284,30 @@ namespace BugTracker.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void CreateNotification(TicketHistories historyEntry)
+        {
+            db.Notifications.Add
+            (
+                new TicketNotifications
+                {
+                    TicketId = historyEntry.TicketId,
+                    UserId = historyEntry.UserId,
+                    HasBeenRead = false
+                }
+            );
+
+            string ticketUrl = Url.Action(Common.DETAILS, ControllerName.TICKETS, new { id = historyEntry.TicketId }, protocol: Request.Url.Scheme);
+            ApplicationUser developer = db.Users.Find(historyEntry.UserId);
+            IdentityMessage notificationMessage = new IdentityMessage
+            {
+                Destination = developer.Email,
+                Subject = "A ticket has been assigned to you.",
+                Body = "<a href=" + ticketUrl + ">Take a look</a>"
+            };
+            EmailService emailService = new EmailService();
+            emailService.SendAsync(notificationMessage);
         }
     }
 }
