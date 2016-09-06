@@ -207,7 +207,6 @@ namespace BugTracker.Controllers
 
                 foreach (PropertyInfo propertyInfo in propertyInfoList)
                 {
-                    // Needs cleanup
                     var oldValue = original.GetType().GetProperty(propertyInfo.Name)?.GetValue(original, null);
                     var newValue = tickets.GetType().GetProperty(propertyInfo.Name)?.GetValue(tickets, null);
                     string strOldValue = oldValue?.ToString() ?? string.Empty;

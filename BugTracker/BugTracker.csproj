@@ -6645,6 +6645,8 @@
     <Content Include="metronic_4.7\sass\pages\profile.scss" />
     <Content Include="metronic_4.7\sass\pages\search.scss" />
     <Content Include="metronic_4.7\sass\pages\tasks.scss" />
+    <None Include="Properties\PublishProfiles\rfleming-bugtracker - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\rfleming-bugtracker - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\rfleming-bugtracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

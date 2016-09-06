@@ -54,7 +54,7 @@ namespace BugTracker.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> LoginAsDemoAdmin()
+        public async Task<ActionResult> LoginAsDemoAdministrator()
         {
             return await LoginAsDemoUser(0);
         }

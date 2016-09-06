@@ -7,7 +7,6 @@ using System.Net;
 using System.Web.Mvc;
 using BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
