@@ -28,49 +28,42 @@ namespace BugTracker.Controllers
             string userId = User.Identity.GetUserId();
             List<Tickets> tickets = new List<Tickets>();
             List<Projects> projects = new List<Projects>();
+            ICollection<string> userRoles = UserRolesHelper.ListUserRoles(userId);
 
-            if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+            if (userRoles.Contains(Role.ADMINISTRATOR))
             {
                 // All tickets
                 tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType).ToList();
             }
-            else if (UserRolesHelper.IsUserInRole(userId, Role.SUBMITTER))
+            else if (userRoles.Contains(Role.SUBMITTER))
             {
                 // Tickets owned by Submitter
                 tickets = db.Tickets.Where(t => t.OwnerUserId == userId).ToList();
             }
-            else
+            else if (userRoles.Contains(Role.DEVELOPER))
             {
-                // ***** NEEDS REFACTORING (LINQ will save the day)
-                //
-                // Project Manager Index & Standard Index for Developer
-                //
-                
-                // Tickets for projects to which the Project Manager or Developer is assigned
+                tickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
+            }
+            else if (userRoles.Contains(Role.PROJECT_MANAGER))
+            {
+                //projects = db.Projects.Where(p => p.ProjectManagerUserId == userId).ToList();
+                //foreach (Projects project in projects)
+                //{
+                //    tickets.Concat(project.Tickets);
+                //}
 
-                // Create a list of all projects the user is involved with
+                ApplicationUser user = UserRolesHelper.GetUserById(userId);
                 foreach (Projects project in db.Projects.ToList())
                 {
-                    foreach (ApplicationUser user in project.Users)
+                    foreach (ApplicationUser projectUser in project.Users)
                     {
-                        if (user.Id == userId)
+                        if (userId == projectUser.Id)
                         {
-                            projects.Add(project);
+                            tickets.AddRange(project.Tickets);
                         }
                     }
                 }
-                // potentially long list, so we only iterate through it once
-                foreach (Tickets ticket in db.Tickets.ToList())
-                {
-                    // much smaller list than tickets
-                    foreach (Projects project in projects)
-                    {
-                        if (ticket.Project.Id == project.Id)
-                        {
-                            tickets.Add(ticket);
-                        }
-                    }
-                }
+
             }
             return View(tickets);
         }

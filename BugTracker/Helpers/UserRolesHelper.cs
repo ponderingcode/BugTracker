@@ -10,7 +10,6 @@ namespace BugTracker.Helpers
     public static class UserRolesHelper
     {
         private static UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-
         private static ApplicationDbContext db = new ApplicationDbContext();
 
         public static bool IsUserInRole(string userId, string roleName)

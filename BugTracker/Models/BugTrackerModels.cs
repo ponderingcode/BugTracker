@@ -225,6 +225,9 @@ namespace BugTracker.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
+        [Display(Name = "Project Manager")]
+        public string ProjectManagerUserId { get; set; }
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM.dd.yyyy}")]
         public DateTimeOffset? StartDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM.dd.yyyy}")]
