@@ -228,8 +228,11 @@ namespace BugTracker.Models
         [Display(Name = "Project Manager")]
         public string ProjectManagerUserId { get; set; }
 
+        [Display(Name = "Start Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM.dd.yyyy}")]
         public DateTimeOffset? StartDate { get; set; }
+
+        [Display(Name = "End Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM.dd.yyyy}")]
         public DateTimeOffset? EndDate { get; set; }
 

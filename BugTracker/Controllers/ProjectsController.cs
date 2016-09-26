@@ -134,7 +134,7 @@ namespace BugTracker.Controllers
                     }
                 }
                 // navigate back to the roles index page
-                return RedirectToAction(Common.INDEX);
+                return RedirectToAction(ActionName.INDEX);
             }
             return View(projectViewModel);
         }

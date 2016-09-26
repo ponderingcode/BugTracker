@@ -72,15 +72,21 @@ namespace BugTracker
         public const string DESCRIPTION = "Description";
         public const string UPDATED = "Updated";
         public const string USER_NAME = "UserName";
+        public const string MULTIPART_FORM_DATA = "Multipart/form-data";
+        //public const string NOT_IN_USE = "Not In Use";
+        //public const string NAVIGATION_CSS_CLASS_ACTIVE = "nav-item active";
+        //public const string NAVIGATION_CSS_CLASS_INACTIVE = "nav-item";
+    }
+
+    public static class ActionName
+    {
         public const string CREATE = "Create";
         public const string DELETE = "Delete";
         public const string DETAILS = "Details";
         public const string EDIT = "Edit";
         public const string INDEX = "Index";
-        public const string MULTIPART_FORM_DATA = "Multipart/form-data";
-        public const string NOT_IN_USE = "Not In Use";
-        public const string NAVIGATION_CSS_CLASS_ACTIVE = "nav-item active";
-        public const string NAVIGATION_CSS_CLASS_INACTIVE = "nav-item";
+        public const string LOGIN = "Login";
+        public const string LOG_OFF = "LogOff";
     }
 
     public static class ControllerName

@@ -80,7 +80,7 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
-                return RedirectToAction(Common.INDEX);
+                return RedirectToAction(ActionName.INDEX);
             }
             return View(roleViewModel);
         }

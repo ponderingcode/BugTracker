@@ -290,7 +290,7 @@ namespace BugTracker.Controllers
                 }
             );
 
-            string ticketUrl = Url.Action(Common.DETAILS, ControllerName.TICKETS, new { id = historyEntry.TicketId }, protocol: Request.Url.Scheme);
+            string ticketUrl = Url.Action(ActionName.DETAILS, ControllerName.TICKETS, new { id = historyEntry.TicketId }, protocol: Request.Url.Scheme);
             ApplicationUser developer = db.Users.Find(historyEntry.UserId);
             IdentityMessage notificationMessage = new IdentityMessage
             {
