@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - BugTracker</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link href="~/Dependencies/dataTables/DataTablesCustom.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,7 +38,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

@@ -217,8 +217,10 @@
     <Content Include="Content\superhero.css" />
     <Content Include="DataTables_1.10.12\DataTables.min.js" />
     <Content Include="DataTables_1.10.12\DataTables.min.css" />
+    <Content Include="DataTables_1.10.12\DataTablesCustom.css" />
     <Content Include="Dependencies\dataTables\DataTables-1.10.12.min.css" />
     <Content Include="Dependencies\dataTables\DataTables-1.10.12.min.js" />
+    <Content Include="Dependencies\dataTables\DataTablesCustom.css" />
     <Content Include="Dependencies\jQuery\jquery-2.2.4.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

@@ -118,6 +118,9 @@ textarea {
   font: inherit;
   margin: 0;
 }
+select {
+    color: black;
+}
 button {
   overflow: visible;
 }
@@ -2293,7 +2296,8 @@ th {
   padding: 3px;
 }
 .table-bordered {
-  border: 1px solid #4e5d6c;
+  /*border: 1px solid #4e5d6c;*/
+  border: 1px solid #e7e7e7;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
