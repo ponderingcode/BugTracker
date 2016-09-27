@@ -1,26 +1,42 @@
 ﻿@model IEnumerable<BugTracker.Models.RoleViewModel>
 
 @{
-    ViewBag.Title = "SingleRoleIndex";
+    ViewBag.Title = "Single Role Index";
 }
 
-<h2>SingleRoleIndex</h2>
+<script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/Dependencies/dataTables/DataTables-1.10.12.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#tblSingleRole').DataTable();
+    });
+</script>
 
-<table class="table">
-    <tr>
-        <th>
-            @ViewBag.roleName
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var user in ViewBag.usersInRole) {
-    <tr>
-        <td>
-            @user.Email
-        </td>
-    </tr>
-}
-@Html.ActionLink("Back to List", "Index")
-
-</table>
+<h2>@ViewBag.roleName</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <table id="tblSingleRole" class="table stripe row-border compact">
+                <thead>
+                    <tr>
+                        <th>
+                            @ViewBag.roleName
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in ViewBag.usersInRole)
+                    {
+                        <tr>
+                            <td>
+                                @user.Email
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                @Html.ActionLink("Back to List", "Index")
+            </table>
+        </div>
+        <div class="col-md-9"></div>
+    </div>
+</div>
