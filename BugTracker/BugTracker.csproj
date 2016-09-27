@@ -260,10 +260,9 @@
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPassword_metronic.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -296,8 +295,8 @@
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Tickets\TicketsAssignedToDeveloper.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Register_OLD.cshtml" />
-    <Content Include="Views\Account\ForgotPassword_OLD.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Projects\Index_OLD.cshtml" />
     <Content Include="Views\Tickets\_TicketHistory.cshtml" />
     <Content Include="Views\Shared\_AddComment.cshtml" />

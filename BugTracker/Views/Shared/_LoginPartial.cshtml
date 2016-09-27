@@ -2,19 +2,14 @@
 @using Microsoft.AspNet.Identity.EntityFramework
 @using BugTracker.Models
 
-@* GET RID OF THIS & GET USER INFO VIA CONTROLLER & VIEWDATA *@
-@if (null != HttpContext.Current.User && HttpContext.Current.User.Identity.IsAuthenticated)
+@if (Request.IsAuthenticated)
 {
-    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-    var user = manager.FindById(User.Identity.GetUserId());
-    string displayedProfileInfo = (string.Empty == user.FirstName || null == user.FirstName) ? user.Email : user.FirstName;
     using (Html.BeginForm(ActionName.LOG_OFF, ControllerName.ACCOUNT, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-                    @Html.AntiForgeryToken()
-
-                    <ul class="nav navbar-nav navbar-right">
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello, " + displayedProfileInfo + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign Out</a></li>
         </ul>
@@ -23,7 +18,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
