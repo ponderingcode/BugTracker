@@ -1,6 +1,6 @@
 ﻿@model BugTracker.Models.TicketComments
 
-@using (Html.BeginForm(Common.CREATE, ControllerName.TICKET_COMMENTS, FormMethod.Post, new { enctype = Common.MULTIPART_FORM_DATA }))
+@using (Html.BeginForm(ActionName.CREATE, ControllerName.TICKET_COMMENTS, FormMethod.Post, new { enctype = Common.MULTIPART_FORM_DATA }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TicketId)
