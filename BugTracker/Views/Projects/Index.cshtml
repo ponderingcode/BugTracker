@@ -1,22 +1,24 @@
 ﻿@model IEnumerable<BugTracker.Models.Projects>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projects";
 }
 <script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="~/Dependencies/dataTables/DataTables-1.10.12.min.js" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
         $('#tblProjects').DataTable();
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
+<h2>Projects <a href="@Url.Action(ActionName.CREATE, ControllerName.PROJECTS)" data-toggle="tooltip" data-placement="right" title="Create a new project"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h2>
 
-<h2>Index</h2>
-
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table id="tblProjects" class="table stripe row-border compact">
+</p>*@
+
+
+<table id="tblProjects" class="table  stripe row-border compact">
     <thead>
         <tr>
             <th>
@@ -45,9 +47,9 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    <a href="@Url.Action(ActionName.EDIT, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit project"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                    <a href="@Url.Action(ActionName.DETAILS, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="View project details"><i class="fa fa-info-circle" aria-hidden="true"></i></a> |
+                    <a href="@Url.Action(ActionName.DELETE, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete project"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         }
