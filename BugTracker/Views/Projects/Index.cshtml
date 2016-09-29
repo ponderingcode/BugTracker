@@ -11,51 +11,45 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
-<h2>Projects <a href="@Url.Action(ActionName.CREATE, ControllerName.PROJECTS)" data-toggle="tooltip" data-placement="right" title="Create a new project"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h2>
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
-
-
-<table id="tblProjects" class="table stripe row-border compact">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                Options
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="well bs-component" style="padding-top:0px;">
+    <h2>Projects <a href="@Url.Action(ActionName.CREATE, ControllerName.PROJECTS)" data-toggle="tooltip" data-placement="right" title="Create a new project"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h2>
+    <table id="tblProjects" class="table stripe row-border compact">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    <a href="@Url.Action(ActionName.EDIT, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit project"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
-                    <a href="@Url.Action(ActionName.DETAILS, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="View project details"><i class="fa fa-info-circle" aria-hidden="true"></i></a> |
-                    <a href="@Url.Action(ActionName.DELETE, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete project"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    Options
+                </th>
             </tr>
-        }
-    </tbody>
-
-
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        <a href="@Url.Action(ActionName.EDIT, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit project"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                        <a href="@Url.Action(ActionName.DETAILS, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="View project details"><i class="fa fa-info-circle" aria-hidden="true"></i></a> |
+                        <a href="@Url.Action(ActionName.DELETE, ControllerName.PROJECTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete project"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

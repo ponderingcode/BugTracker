@@ -215,9 +215,6 @@
     <Content Include="assets\DataTables\jquery.DataTables.min.css" />
     <Content Include="assets\DataTables\jquery.dataTables.min.js" />
     <Content Include="Content\superhero.css" />
-    <Content Include="DataTables_1.10.12\DataTables.min.js" />
-    <Content Include="DataTables_1.10.12\DataTables.min.css" />
-    <Content Include="DataTables_1.10.12\DataTablesCustom.css" />
     <Content Include="Dependencies\dataTables\DataTables-1.10.12.min.css" />
     <Content Include="Dependencies\dataTables\DataTables-1.10.12.min.js" />
     <Content Include="Dependencies\dataTables\DataTablesCustom.css" />
@@ -264,7 +261,8 @@
     <Content Include="fonts\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="fonts\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome-4.6.3\scss\_variables.scss" />
-    <Content Include="Properties\PublishProfiles\rfleming-bugtracker.PublishSettings" />
+    <None Include="Properties\PublishProfiles\rfleming-bugtracker - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\rfleming-bugtracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
