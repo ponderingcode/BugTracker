@@ -237,6 +237,22 @@ namespace BugTracker.Controllers
             return View(tickets);
         }
 
+        // GET: Tickets/Archive/5
+        [VerboseAuthorize(Roles = Role.ADMINISTRATOR)]
+        public ActionResult Archive(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tickets tickets = db.Tickets.Find(id);
+            if (tickets == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tickets);
+        }
+
         // GET: Tickets/Delete/5
         [VerboseAuthorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Delete(int? id)
