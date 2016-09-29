@@ -4,20 +4,20 @@
 
 <div class="jumbotron">
     <h2>&nbsp;&nbsp;Welcome to BugTracker.</h2>
-    <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's what JIRA would look like if JIRA were created by a single developer in the span of a few weeks.</p>
+    <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's what JIRA would look like if JIRA had been created by a single developer in the span of a few weeks.</p>
 </div>
 
 <div class="row">
-        <div class="col-md-3">
-            <p><a class="btn btn-danger" href="@Url.Action("LoginAsDemoAdministrator", ControllerName.ACCOUNT)" style="width:100%">Login as Administrator</a></p>
-        </div>
-        <div class="col-md-3">
-            <p><a class="btn btn-warning" href="@Url.Action("LoginAsDemoProjectManager", ControllerName.ACCOUNT)" style="width:100%">Login as Project Manager</a></p>
-        </div>
-        <div class="col-md-3">
-            <p><a class="btn btn-info" href="@Url.Action("LoginAsDemoDeveloper", ControllerName.ACCOUNT)" style="width:100%">Login as Developer</a></p>
-        </div>
-        <div class="col-md-3">
-            <p><a class="btn btn-success" href="@Url.Action("LoginAsDemoSubmitter", ControllerName.ACCOUNT)" style="width:100%">Login as Submitter</a></p>
-        </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-danger" href="@Url.Action(ActionName.LOGIN_AS_DEMO_ADMINISTRATOR, ControllerName.ACCOUNT)" style="width:100%">Login as Administrator</a></p>
+    </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-warning" href="@Url.Action(ActionName.LOGIN_AS_DEMO_PROJECT_MANAGER, ControllerName.ACCOUNT)" style="width:100%">Login as Project Manager</a></p>
+    </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-info" href="@Url.Action(ActionName.LOGIN_AS_DEMO_DEVELOPER, ControllerName.ACCOUNT)" style="width:100%">Login as Developer</a></p>
+    </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-success" href="@Url.Action(ActionName.LOGIN_AS_DEMO_SUBMITTER, ControllerName.ACCOUNT)" style="width:100%">Login as Submitter</a></p>
+    </div>
 </div>
