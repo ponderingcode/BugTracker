@@ -6990,3 +6990,12 @@ option {
 .transparent-background {
     background-color: transparent;
 }
+
+.form-item {
+    padding-bottom: 10px;
+}
+
+label {
+    padding-top: 10px;
+    font-size: 14px;
+}
