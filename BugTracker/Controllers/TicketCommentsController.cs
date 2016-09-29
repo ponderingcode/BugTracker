@@ -59,7 +59,8 @@ namespace BugTracker.Controllers
             {
                 db.TicketComments.Add(ticketComments);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return View(ticketComments);
             }
 
             //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);

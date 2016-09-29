@@ -149,7 +149,9 @@ namespace BugTracker.Models
         public int Id { get; set; }
         public int? TicketId { get; set; }
         public string Property { get; set; }
+        [Display(Name = "Old Value")]
         public string OldValue { get; set; }
+        [Display(Name = "New Value")]
         public string NewValue { get; set; }
         public bool? Changed { get; set; }
         public string UserId { get; set; }

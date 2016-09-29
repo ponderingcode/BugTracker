@@ -1,44 +1,46 @@
 ﻿@model IEnumerable<BugTracker.Models.TicketComments>
-
-@*http://stackoverflow.com/questions/21628960/the-model-item-passed-into-the-dictionary-is-of-type-a-but-this-dictionary-re*@
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+<script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/Dependencies/dataTables/DataTables-1.10.12.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#tblComments').DataTable();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<table id="tblComments" class="table stripe row-border compact">
+    <thead>
+        <tr>
+            <th>
+                Author
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                Timestamp
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit comment"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                    <a href="@Url.Action(ActionName.DELETE, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete comment"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

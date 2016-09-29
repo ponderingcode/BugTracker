@@ -6,20 +6,14 @@
     @Html.HiddenFor(model => model.TicketId)
     @Html.HiddenFor(model => model.UserId)
     @Html.HiddenFor(model => model.Created)
-    <div class="form-horizontal">
-        <h4>TicketComments</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="form-group">
+        <div class="col-md-12">
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @placeholder = "Type your comment here" } })
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-2">
+                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
         </div>
     </div>
