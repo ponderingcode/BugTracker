@@ -264,9 +264,7 @@
     <Content Include="fonts\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="fonts\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome-4.6.3\scss\_variables.scss" />
-    <None Include="Properties\PublishProfiles\rfleming-bugtracker - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\rfleming-bugtracker - Web Deploy %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\rfleming-bugtracker - Web Deploy.pubxml" />
+    <Content Include="Properties\PublishProfiles\rfleming-bugtracker.PublishSettings" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
