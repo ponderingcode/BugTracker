@@ -16,9 +16,9 @@
 <div class="well bs-component" style="padding-top:0px;">
     <h2>Tickets <a href="@Url.Action(ActionName.CREATE, ControllerName.TICKETS)" data-toggle="tooltip" data-placement="right" title="Create a new ticket"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h2>
     <p>
-        @if (UserRolesHelper.IsUserInRole(userId, Role.DEVELOPER))
+        @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
         {
-            @Html.ActionLink("View Tickets Assigned To Me", "TicketsAssignedToDeveloper")
+            <a href="@Url.Action("ArchivedTickets", ControllerName.TICKETS)" class="btn btn-primary">Archived Tickets</a>
         }
     </p>
     <table id="tblTickets" class="table stripe row-border compact">

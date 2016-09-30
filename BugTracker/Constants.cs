@@ -78,6 +78,8 @@ namespace BugTracker
     public static class ActionName
     {
         public const string ARCHIVE                       = "Archive";
+        public const string CHANGE_PROFILE_INFO           = "ChangeProfileInfo";
+        public const string CHANGE_PASSWORD               = "ChangePassword";
         public const string CREATE                        = "Create";
         public const string DELETE                        = "Delete";
         public const string DETAILS                       = "Details";
@@ -89,6 +91,7 @@ namespace BugTracker
         public const string LOGIN_AS_DEMO_PROJECT_MANAGER = "LoginAsDemoProjectManager";
         public const string LOGIN_AS_DEMO_SUBMITTER       = "LoginAsDemoSubmitter";
         public const string LOG_OFF                       = "LogOff";
+        public const string SET_PASSWORD                  = "SetPassword";
     }
 
     public static class ControllerName

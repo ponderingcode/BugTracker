@@ -2,53 +2,44 @@
 @{
     ViewBag.Title = "Change Profile Info";
 }
-
-<h2>@ViewBag.Title</h2>
-
-@using (Html.BeginForm("ChangeProfileInfo", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>If a field is left blank, no changes will be made to that field.</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NewFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewFirstName, "", new { @class = "text-danger" })
-            </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3"></div>
+        <div class="well bs-component col-md-6">
+            @using (Html.BeginForm(ActionName.CHANGE_PROFILE_INFO, ControllerName.MANAGE, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Change Profile Info</legend>
+                    <h4>If a field is left blank, no changes will be made to that field.</h4>
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input name="NewFirstName" type="text" class="form-control" placeholder="New First Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input name="NewLastName" type="password" class="form-control" placeholder="New Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input name="NewDisplayName" type="password" class="form-control" placeholder="New Display Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 modal-footer well-footer">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                            <a href="@Url.Action(ActionName.INDEX, ControllerName.MANAGE)" class="btn btn-primary">Cancel</a>
+                        </div>
+                    </div>
+                </fieldset>
+            }
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewLastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NewLastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewLastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewDisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NewDisplayName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewDisplayName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <div class="col-md-3"></div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
