@@ -111,10 +111,12 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public int? TicketId { get; set; }
+        [Display(Name = "File Path")]
         public string FilePath { get; set; }
         public string Description { get; set; }
         public DateTimeOffset Created { get; set; }
         public string UserId { get; set; }
+        [Display(Name = "File URL")]
         public string FileURL { get; set; }
 
         public virtual Tickets Ticket { get; set; }

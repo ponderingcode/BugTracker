@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BugTracker.Models.TicketAttachments>
+@using Microsoft.AspNet.Identity
+@using BugTracker.Helpers
+<script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/Dependencies/dataTables/DataTables-1.10.12.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#tblTicketAttachments').DataTable();
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+@{ 
+    string userId = User.Identity.GetUserId();
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="tblTicketAttachments" class="table stripe row-border compact">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+            {
+                <th>
+                    Options
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-toggle="popover" title="Attachment" data-placement="top" data-content="#content">
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileURL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                {
+                    <td>
+                        <a href="@Url.Action(ActionName.DELETE_ATTACHMENT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete attachment"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

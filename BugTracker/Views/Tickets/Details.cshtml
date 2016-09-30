@@ -13,6 +13,7 @@
                 <li id="tab0" class="@ViewBag.Tab0"><a data-toggle="tab" href="#info">Details</a></li>
                 <li id="tab1" class="@ViewBag.Tab1"><a data-toggle="tab" href="#history">History</a></li>
                 <li id="tab2" class="@ViewBag.Tab2"><a data-toggle="tab" href="#comments">Comments</a></li>
+                <li id="tab2" class="@ViewBag.Tab3"><a data-toggle="tab" href="#attachments">Attachments</a></li>
             </ul>
         </div>
         <div class="col-md-3"></div>
@@ -181,6 +182,12 @@
                         @Html.Partial(PartialViewName.ADD_COMMENT, new TicketComments() { TicketId = Model.Id, Created = DateTimeOffset.Now, UserId = ViewBag.CurrentUser })
                     }
                     @Html.Partial(PartialViewName.COMMENTS, Model.TicketComments)
+                </div>
+                <div id="attachments" class="tab-pane @ViewBag.Tab3">
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.Partial(PartialViewName.TICKET_ATTACHMENTS, Model.TicketAttachments)
+                    }
                 </div>
             </div>
         </div>

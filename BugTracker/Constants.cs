@@ -83,6 +83,7 @@ namespace BugTracker
         public const string CHANGE_PASSWORD               = "ChangePassword";
         public const string CREATE                        = "Create";
         public const string DELETE                        = "Delete";
+        public const string DELETE_ATTACHMENT             = "DeleteAttachment";
         public const string DETAILS                       = "Details";
         public const string EDIT                          = "Edit";
         public const string INDEX                         = "Index";
@@ -117,8 +118,9 @@ namespace BugTracker
 
     public static class PartialViewName
     {
-        public const string ADD_COMMENT    = "_AddComment";
-        public const string COMMENTS       = "_Comments";
-        public const string TICKET_HISTORY = "_TicketHistory";
+        public const string ADD_COMMENT        = "_AddComment";
+        public const string COMMENTS           = "_Comments";
+        public const string TICKET_ATTACHMENTS = "_TicketAttachments";
+        public const string TICKET_HISTORY     = "_TicketHistory";
     }
 }

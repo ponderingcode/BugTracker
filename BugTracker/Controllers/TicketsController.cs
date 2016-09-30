@@ -127,6 +127,7 @@ namespace BugTracker.Controllers
                 ViewBag.Tab0 = 0 == activeTab ? Common.ACTIVE : string.Empty;
                 ViewBag.Tab1 = 1 == activeTab ? Common.ACTIVE : string.Empty;
                 ViewBag.Tab2 = 2 == activeTab ? Common.ACTIVE : string.Empty;
+                ViewBag.Tab3 = 3 == activeTab ? Common.ACTIVE : string.Empty;
             }
             else
             {
@@ -262,9 +263,9 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
-
                 db.Entry(tickets).State = EntityState.Modified;
                 db.SaveChanges();
+
                 if (null != image)
                 {
                     TicketAttachments ticketAttachment = new TicketAttachments();
@@ -273,8 +274,9 @@ namespace BugTracker.Controllers
                     ticketAttachment.FileURL = filePath + image.FileName; // media URL for relative path
                     image.SaveAs(Path.Combine(absPath, image.FileName));
                     tickets.TicketAttachments.Add(ticketAttachment);
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", tickets.AssignedToUserId);
@@ -336,6 +338,13 @@ namespace BugTracker.Controllers
             ticket.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAttachment(TicketAttachments ticketAttachment)
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

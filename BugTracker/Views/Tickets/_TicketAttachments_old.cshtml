@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BugTracker.Models.TicketAttachments>
+<script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/Dependencies/dataTables/DataTables-1.10.12.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#tblTicketAttachments').DataTable();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<table id="tblTicketAttachments" class="table stripe row-border compact">
+    <thead>
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OldValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewValue)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OldValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewValue)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
