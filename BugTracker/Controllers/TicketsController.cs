@@ -230,7 +230,7 @@ namespace BugTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,Updated,TicketStatusId,TicketPriorityId,TicketTypeId,ProjectId,OwnerUserId,AssignedToUserId")] Tickets tickets)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,Updated,TicketStatusId,TicketPriorityId,TicketTypeId,ProjectId,OwnerUserId,AssignedToUserId")] Tickets tickets, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -262,7 +262,18 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
+
                 db.Entry(tickets).State = EntityState.Modified;
+                db.SaveChanges();
+                if (null != image)
+                {
+                    TicketAttachments ticketAttachment = new TicketAttachments();
+                    string filePath = "/Uploads/"; // relative server path
+                    string absPath = Server.MapPath("~" + filePath); // path on physical drive on server
+                    ticketAttachment.FileURL = filePath + image.FileName; // media URL for relative path
+                    image.SaveAs(Path.Combine(absPath, image.FileName));
+                    tickets.TicketAttachments.Add(ticketAttachment);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
