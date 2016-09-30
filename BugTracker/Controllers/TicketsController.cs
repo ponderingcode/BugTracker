@@ -65,6 +65,14 @@ namespace BugTracker.Controllers
                 }
 
             }
+            // don't display archived tickets
+            foreach (Tickets ticket in tickets.ToList())
+            {
+                if (ticket.Deleted)
+                {
+                    tickets.Remove(ticket);
+                }
+            }
             return View(tickets);
         }
 
@@ -286,12 +294,15 @@ namespace BugTracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             // Need to check for attachments and delete those prior to deleting a ticket
-            Tickets tickets = db.Tickets.Find(id);
-            if (0 < tickets.TicketAttachments.Count)
-            {
-                tickets.TicketAttachments.Clear();
-            }
-            db.Tickets.Remove(tickets);
+            //Tickets tickets = db.Tickets.Find(id);
+            //if (0 < tickets.TicketAttachments.Count)
+            //{
+            //    tickets.TicketAttachments.Clear();
+            //}
+            //db.Tickets.Remove(tickets);
+            //db.SaveChanges();
+            Tickets ticket = db.Tickets.Find(id);
+            ticket.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

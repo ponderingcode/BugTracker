@@ -96,7 +96,7 @@
                     <td>
                         <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit ticket"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
                         <a href="@Url.Action(ActionName.DETAILS, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="View ticket details"><i class="fa fa-info-circle" aria-hidden="true"></i></a> |
-                        <a href="@Url.Action(ActionName.ARCHIVE, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Archive ticket"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                        <a href="@Url.Action(ActionName.DELETE, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Archive ticket"><i class="fa fa-archive" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             }
