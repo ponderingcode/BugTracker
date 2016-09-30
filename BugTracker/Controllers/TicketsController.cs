@@ -78,7 +78,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Tickets/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? activeTab)
         {
             if (id == null)
             {
@@ -92,6 +92,17 @@ namespace BugTracker.Controllers
             if (Request.IsAuthenticated)
             {
                 ViewBag.CurrentUser = User.Identity.GetUserId();
+            }
+
+            if (null != activeTab)
+            {
+                ViewBag.Tab0 = 0 == activeTab ? Common.ACTIVE : string.Empty;
+                ViewBag.Tab1 = 1 == activeTab ? Common.ACTIVE : string.Empty;
+                ViewBag.Tab2 = 2 == activeTab ? Common.ACTIVE : string.Empty;
+            }
+            else
+            {
+                ViewBag.Tab0 = Common.ACTIVE;
             }
             return View(tickets);
         }

@@ -10,9 +10,9 @@
         <div class="col-md-6">
             <h2 style="margin-top:0px;">Ticket Information</h2>
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#info">Details</a></li>
-                <li><a data-toggle="tab" href="#history">History</a></li>
-                <li><a data-toggle="tab" href="#comments">Comments</a></li>
+                <li id="tab0" class="@ViewBag.Tab0"><a data-toggle="tab" href="#info">Details</a></li>
+                <li id="tab1" class="@ViewBag.Tab1"><a data-toggle="tab" href="#history">History</a></li>
+                <li id="tab2" class="@ViewBag.Tab2"><a data-toggle="tab" href="#comments">Comments</a></li>
             </ul>
         </div>
         <div class="col-md-3"></div>
@@ -23,7 +23,7 @@
         <div class="col-md-2"></div>
         <div class="well bs-component col-md-8">
             <div class="tab-content">
-                <div id="info" class="tab-pane active">
+                <div id="info" class="tab-pane @ViewBag.Tab0">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
@@ -172,10 +172,10 @@
                         </fieldset>
                     }
                 </div>
-                <div id="history" class="tab-pane">
+                <div id="history" class="tab-pane @ViewBag.Tab1">
                     @Html.Partial(PartialViewName.TICKET_HISTORY, Model.Histories)
                 </div>
-                <div id="comments" class="tab-pane">
+                <div id="comments" class="tab-pane @ViewBag.Tab2">
                     @if (Request.IsAuthenticated)
                     {
                         @Html.Partial(PartialViewName.ADD_COMMENT, new TicketComments() { TicketId = Model.Id, Created = DateTimeOffset.Now, UserId = ViewBag.CurrentUser })

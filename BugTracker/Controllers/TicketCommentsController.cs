@@ -37,7 +37,6 @@ namespace BugTracker.Controllers
             return View(ticketComments);
         }
 
-        // not called (only using POST method)
         // GET: TicketComments/Create
         public ActionResult Create(int ticketId)
         {
@@ -55,17 +54,14 @@ namespace BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Comment,Created,TicketId,UserId")] TicketComments ticketComments)
         {
+            ticketComments.Created = DateTimeOffset.Now;
+            ticketComments.UserId = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.TicketComments.Add(ticketComments);
                 db.SaveChanges();
-                //return RedirectToAction("Index");
-                return View(ticketComments);
             }
-
-            //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
-            return View(ticketComments);
+            return RedirectToAction(ActionName.DETAILS, ControllerName.TICKETS, routeValues: new { id = ticketComments.TicketId, activeTab = 2 });
         }
 
         // GET: TicketComments/Edit/5

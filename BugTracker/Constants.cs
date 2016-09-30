@@ -67,6 +67,7 @@ namespace BugTracker
 
     public static class Common
     {
+        public const string ACTIVE              = "active";
         public const string ID                  = "Id";
         public const string TITLE               = "Title";
         public const string DESCRIPTION         = "Description";
