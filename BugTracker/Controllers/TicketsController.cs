@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,7 +24,7 @@ namespace BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tickets
-        public ActionResult Index()
+        public ActionResult Index(bool onlyShowArchived = false)
         {
             string userId = User.Identity.GetUserId();
             List<Tickets> tickets = new List<Tickets>();
@@ -65,14 +66,33 @@ namespace BugTracker.Controllers
                 }
 
             }
-            // don't display archived tickets
-            foreach (Tickets ticket in tickets.ToList())
+            if (!onlyShowArchived)
             {
-                if (ticket.Deleted)
+                ViewBag.Display = "Show Archived Tickets";
+                ViewBag.OnlyShowArchived = true;
+
+                foreach (Tickets ticket in tickets.ToList())
                 {
-                    tickets.Remove(ticket);
+                    if (ticket.Deleted)
+                    {
+                        tickets.Remove(ticket);
+                    }
                 }
             }
+            else
+            {
+                ViewBag.Display = "Show Active Tickets";
+                ViewBag.OnlyShowArchived = false;
+
+                foreach (Tickets ticket in tickets.ToList())
+                {
+                    if (!ticket.Deleted)
+                    {
+                        tickets.Remove(ticket);
+                    }
+                }
+            }
+            
             return View(tickets);
         }
 
