@@ -7,15 +7,12 @@
     $(document).ready(function() {
         $('#tblTicketAttachments').DataTable();
         $('[data-toggle="tooltip"]').tooltip();
-        $('[data-toggle="popover"]').popover();
     });
 </script>
 @{ 
     string userId = User.Identity.GetUserId();
+
 }
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table id="tblTicketAttachments" class="table stripe row-border compact">
     <thead>
         <tr>
@@ -36,20 +33,48 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr data-toggle="popover" title="Attachment" data-placement="top" data-content="#content">
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.FileURL)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Created)
                 </td>
-                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
-                {
-                    <td>
-                        <a href="@Url.Action(ActionName.DELETE_ATTACHMENT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete attachment"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    </td>
-                }
+                <td>
+                    <a href="@Url.Action(ActionName.ATTACHMENT_DETAILS, ControllerName.TICKETS, new { ticketId = item.TicketId, mediaSource = item.FileURL })" data-toggle="tooltip" data-placement="top" title="Attachment Details"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                    @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                    {
+                        <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="@Url.Action(ActionName.DELETE_ATTACHMENT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete attachment"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    }
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- BEGIN Ticket Attachment Modal -->
+<div id="ticketAttachmentModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <img id="imgTicketAttachment" class="img-responsive"/>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Ticket Attachment Modal -->

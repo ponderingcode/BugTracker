@@ -136,6 +136,17 @@ namespace BugTracker.Controllers
             return View(tickets);
         }
 
+        public ActionResult AttachmentDetails(int ticketId, string mediaSource)
+        {
+            TicketAttachmentViewModel ticketAttachmentViewModel = new TicketAttachmentViewModel
+            {
+                TicketId = ticketId,
+                MediaSource = mediaSource
+            };
+
+            return View(ticketAttachmentViewModel);
+        }
+
         // GET: Tickets/Create
         [VerboseAuthorize(Roles = Role.SUBMITTER)]
         public ActionResult Create()

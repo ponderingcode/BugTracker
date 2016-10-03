@@ -79,6 +79,7 @@ namespace BugTracker
     public static class ActionName
     {
         public const string ARCHIVE                       = "Archive";
+        public const string ATTACHMENT_DETAILS            = "AttachmentDetails";
         public const string CHANGE_PROFILE_INFO           = "ChangeProfileInfo";
         public const string CHANGE_PASSWORD               = "ChangePassword";
         public const string CREATE                        = "Create";

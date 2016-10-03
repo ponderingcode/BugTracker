@@ -34,12 +34,13 @@
     </div>
     <div class="container body-content" style="padding-top: 65px;">
         @RenderBody()
-        <hr />
+    </div>
+    <div class="container">
+        <hr style="width:100%"/>
         <footer>
             <p>&copy; @DateTime.Now.Year - BugTracker</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
