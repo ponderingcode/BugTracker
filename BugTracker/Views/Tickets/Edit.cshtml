@@ -17,9 +17,9 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id)
-                @Html.HiddenFor(model => model.TicketStatusId)
+                @*@Html.HiddenFor(model => model.TicketStatusId)
                 @Html.HiddenFor(model => model.TicketPriorityId)
-                @Html.HiddenFor(model => model.TicketTypeId)
+                @Html.HiddenFor(model => model.TicketTypeId)*@
                 @Html.HiddenFor(model => model.Created)
                 @Html.HiddenFor(model => model.Updated)
                 <fieldset>
