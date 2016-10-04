@@ -1,7 +1,10 @@
 ﻿@model BugTracker.Models.Tickets
 @using BugTracker.Models
+@using BugTracker.Helpers
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Edit";
+    string userId = User.Identity.GetUserId();
 }
 <script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script>
@@ -17,9 +20,6 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id)
-                @*@Html.HiddenFor(model => model.TicketStatusId)
-                @Html.HiddenFor(model => model.TicketPriorityId)
-                @Html.HiddenFor(model => model.TicketTypeId)*@
                 @Html.HiddenFor(model => model.Created)
                 @Html.HiddenFor(model => model.Updated)
                 <fieldset>
@@ -54,8 +54,15 @@
                                 @Html.LabelFor(model => model.Title)
                             </div>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Title)
+                                }
                             </div>
                         </div>
                     </div>
@@ -65,8 +72,15 @@
                                 @Html.LabelFor(model => model.Description)
                             </div>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Description)
+                                }
                             </div>
                         </div>
                     </div>
@@ -76,7 +90,14 @@
                                 @Html.LabelFor(model => model.Created)
                             </div>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Created)
+                                }
                             </div>
                         </div>
                     </div>
@@ -86,7 +107,14 @@
                                 @Html.LabelFor(model => model.Updated)
                             </div>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Updated, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.EditorFor(model => model.Updated, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Updated)
+                                }
                             </div>
                         </div>
                     </div>
@@ -96,7 +124,14 @@
                                 @Html.LabelFor(model => model.TicketStatusId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("TicketStatusId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.DropDownList("TicketStatusId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.TicketStatus.Name)
+                                }
                             </div>
                         </div>
                     </div>
@@ -106,7 +141,14 @@
                                 @Html.LabelFor(model => model.TicketPriorityId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("TicketPriorityId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.DropDownList("TicketPriorityId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.TicketPriority.Name)
+                                }
                             </div>
                         </div>
                     </div>
@@ -116,7 +158,14 @@
                                 @Html.LabelFor(model => model.TicketTypeId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("TicketTypeId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.DropDownList("TicketTypeId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.TicketType.Name)
+                                }
                             </div>
                         </div>
                     </div>
@@ -126,7 +175,14 @@
                                 @Html.LabelFor(model => model.ProjectId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Project.Name)
+                                }
                             </div>
                         </div>
                     </div>
@@ -136,7 +192,14 @@
                                 @Html.LabelFor(model => model.OwnerUserId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("OwnerUserId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR))
+                                {
+                                    @Html.DropDownList("OwnerUserId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.OwnerUser.FullName)
+                                }
                             </div>
                         </div>
                     </div>
@@ -146,7 +209,14 @@
                                 @Html.LabelFor(model => model.AssignedToUserId)
                             </div>
                             <div class="col-md-9">
-                                @Html.DropDownList("AssignedToUserId", null, htmlAttributes: new { @class = "form-control" })
+                                @if (UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER))
+                                {
+                                    @Html.DropDownList("AssignedToUserId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.AssignedToUser.FullName)
+                                }
                             </div>
                         </div>
                     </div>
