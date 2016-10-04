@@ -223,10 +223,8 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
-
            
             ViewBag.Created = tickets.Created;
-            //ViewBag.Updated = DateTimeOffset.Now;
             tickets.Updated = DateTimeOffset.Now;
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", tickets.AssignedToUserId);
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", tickets.OwnerUserId);
