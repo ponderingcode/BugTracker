@@ -92,11 +92,11 @@ namespace BugTracker.Controllers
             {
                 db.Entry(ticketComments).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(ActionName.DETAILS, ControllerName.TICKETS, new { id = ticketComments.TicketId, activeTab = 2 });
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
-            return RedirectToAction(ActionName.DETAILS, ControllerName.TICKETS, routeValues: new { id = ticketComments.TicketId, activeTab = 2 });
+            return RedirectToAction(ActionName.DETAILS, ControllerName.TICKETS, new { id = ticketComments.TicketId, activeTab = 2 });
         }
 
         // GET: TicketComments/Delete/5
