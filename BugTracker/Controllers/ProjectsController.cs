@@ -110,6 +110,8 @@ namespace BugTracker.Controllers
             if (ModelState.IsValid)
             {
                 Projects projectData = db.Projects.Find(projectViewModel.Id);
+                projectData.Name = projectViewModel.Name;
+
                 var usersOnProject = GetAllUsersOnProject(projectData.Id).Select(u => u.Id);
 
                 if (null == projectViewModel.SelectedUsers)
@@ -133,7 +135,7 @@ namespace BugTracker.Controllers
                         }
                     }
                 }
-                // navigate back to the roles index page
+                db.SaveChanges();
                 return RedirectToAction(ActionName.INDEX);
             }
             return View(projectViewModel);

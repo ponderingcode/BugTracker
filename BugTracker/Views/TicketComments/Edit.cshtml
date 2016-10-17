@@ -58,4 +58,5 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action(ActionName.DETAILS, ControllerName.TICKETS, new { id = Model.TicketId, activeTab = 2 })" class="btn btn-info">Done</a>
 </div>

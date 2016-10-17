@@ -96,7 +96,7 @@ namespace BugTracker.Controllers
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComments.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComments.UserId);
-            return View(ticketComments);
+            return RedirectToAction(ActionName.DETAILS, ControllerName.TICKETS, routeValues: new { id = ticketComments.TicketId, activeTab = 2 });
         }
 
         // GET: TicketComments/Delete/5
