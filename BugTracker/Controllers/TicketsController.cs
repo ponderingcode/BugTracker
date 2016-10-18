@@ -192,6 +192,7 @@ namespace BugTracker.Controllers
                     string filePath = "/Uploads/"; // relative server path
                     string absPath = Server.MapPath("~" + filePath); // path on physical drive on server
                     ticketAttachment.FileURL = filePath + image.FileName; // media URL for relative path
+                    ticketAttachment.Created = DateTimeOffset.Now;
                     image.SaveAs(Path.Combine(absPath, image.FileName));
                     ticket.TicketAttachments.Add(ticketAttachment);
                 }
