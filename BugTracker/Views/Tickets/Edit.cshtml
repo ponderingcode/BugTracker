@@ -61,6 +61,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.Title)
                                     @Html.DisplayFor(model => model.Title)
                                 }
                             </div>
@@ -79,6 +80,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.Description)
                                     @Html.DisplayFor(model => model.Description)
                                 }
                             </div>
@@ -130,6 +132,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.TicketStatusId)
                                     @Html.DisplayFor(model => model.TicketStatus.Name)
                                 }
                             </div>
@@ -147,6 +150,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.TicketPriorityId)
                                     @Html.DisplayFor(model => model.TicketPriority.Name)
                                 }
                             </div>
@@ -164,6 +168,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.TicketTypeId)
                                     @Html.DisplayFor(model => model.TicketType.Name)
                                 }
                             </div>
@@ -181,6 +186,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.ProjectId)
                                     @Html.DisplayFor(model => model.Project.Name)
                                 }
                             </div>
@@ -198,6 +204,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.OwnerUserId)
                                     @Html.DisplayFor(model => model.OwnerUser.FullName)
                                 }
                             </div>
@@ -215,6 +222,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(model => model.AssignedToUserId)
                                     @Html.DisplayFor(model => model.AssignedToUser.FullName)
                                 }
                             </div>
