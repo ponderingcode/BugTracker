@@ -1,8 +1,19 @@
 ﻿@model BugTracker.Models.Tickets
 @using BugTracker.Models
+@using BugTracker.Helpers
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
+    bool readOnly = true;
+    string userId = User.Identity.GetUserId();
+    if (Request.IsAuthenticated && ((UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR) || UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER)) || userId == Model.AssignedToUser.Id))
+    {
+        readOnly = false;
+    }
+    ViewDataDictionary vData = new ViewDataDictionary();
+    vData.Add(new KeyValuePair<string, object>("readOnly", readOnly));
 }
+
 <script src="~/Dependencies/jQuery/jquery-2.2.4.min.js" type="text/javascript"></script>
 <div class="row" style="margin-bottom: -2px;">
     <div class="col-md-12">
@@ -167,7 +178,10 @@
                             <div class="form-group">
                                 <div class="col-md-12 modal-footer well-footer">
                                     <a href="@Url.Action(ActionName.INDEX, ControllerName.TICKETS)" class="btn btn-info">Done</a>
-                                    <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKETS, new { id = Model.Id })" class="btn btn-success">Edit</a>
+                                    @if (Request.IsAuthenticated && ((UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR) || UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER)) || userId == Model.AssignedToUser.Id))
+                                    {
+                                        <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKETS, new { id = Model.Id })" class="btn btn-success">Edit</a>
+                                    }
                                 </div>
                             </div>
                         </fieldset>
@@ -177,17 +191,17 @@
                     @Html.Partial(PartialViewName.TICKET_HISTORY, Model.Histories)
                 </div>
                 <div id="comments" class="tab-pane @ViewBag.Tab2">
-                    @if (Request.IsAuthenticated)
+                    @if (Request.IsAuthenticated && ((UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR) || UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER)) || userId == Model.AssignedToUser.Id))
                     {
                         @Html.Partial(PartialViewName.ADD_COMMENT, new TicketComments() { TicketId = Model.Id, Created = DateTimeOffset.Now, UserId = ViewBag.CurrentUser })
                     }
-                    @Html.Partial(PartialViewName.COMMENTS, Model.TicketComments)
+                    @Html.Partial(PartialViewName.COMMENTS, Model.TicketComments, vData)
                 </div>
                 <div id="attachments" class="tab-pane @ViewBag.Tab3">
-                    @if (Request.IsAuthenticated)
+                    @*@if (Request.IsAuthenticated && ((UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR) || UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER)) || userId == Model.AssignedToUser.Id))
                     {
-                        @Html.Partial(PartialViewName.TICKET_ATTACHMENTS, Model.TicketAttachments)
-                    }
+                    }*@
+                    @Html.Partial(PartialViewName.TICKET_ATTACHMENTS, Model.TicketAttachments)
                 </div>
             </div>
         </div>

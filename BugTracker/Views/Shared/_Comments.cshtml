@@ -37,8 +37,11 @@
                     @Html.DisplayFor(modelItem => item.Created)
                 </td>
                 <td>
-                    <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit comment"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
-                    <a href="@Url.Action(ActionName.DELETE, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete comment"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                    @if (ViewData["readOnly"].Equals(false))
+                    {
+                        <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit comment"><i class="fa fa-pencil" aria-hidden="true"></i></a><span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <a href="@Url.Action(ActionName.DELETE, ControllerName.TICKET_COMMENTS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Delete comment"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                    }
                 </td>
             </tr>
         }

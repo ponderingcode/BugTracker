@@ -44,6 +44,17 @@ namespace BugTracker.Controllers
             else if (userRoles.Contains(Role.DEVELOPER))
             {
                 tickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
+                foreach (Projects project in db.Projects.ToList())
+                {
+                    foreach (ApplicationUser projectUser in project.Users)
+                    {
+                        if (userId == projectUser.Id)
+                        {
+                            tickets.AddRange(project.Tickets);
+                        }
+                    }
+                }
+                tickets = tickets.Distinct().ToList();
             }
             else if (userRoles.Contains(Role.PROJECT_MANAGER))
             {
@@ -52,7 +63,6 @@ namespace BugTracker.Controllers
                 //{
                 //    tickets.Concat(project.Tickets);
                 //}
-
                 ApplicationUser user = UserRolesHelper.GetUserById(userId);
                 foreach (Projects project in db.Projects.ToList())
                 {
