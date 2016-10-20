@@ -99,7 +99,11 @@
                         @Html.DisplayFor(modelItem => item.Updated)
                     </td>
                     <td>
-                        <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit ticket"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                        @if (UserRolesHelper.IsUserInRole(userId, Role.STAKEHOLDERS))
+                        {
+                            <a href="@Url.Action(ActionName.EDIT, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="Edit ticket"><i class="fa fa-pencil" aria-hidden="true"></i></a><span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                        }
                         <a href="@Url.Action(ActionName.DETAILS, ControllerName.TICKETS, new { id = item.Id })" data-toggle="tooltip" data-placement="top" title="View ticket details"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                         @if (UserRolesHelper.IsUserInRole(userId, Role.ADMINISTRATOR) || UserRolesHelper.IsUserInRole(userId, Role.PROJECT_MANAGER))
                         {
