@@ -12,7 +12,7 @@
     });
 </script>
 <h2>Tickets Assigned to You</h2>
-
+@Html.ActionLink("Back", ActionName.INDEX, ControllerName.TICKETS)
 <table id="tblTickets" class="table stripe row-border compact">
     <thead>
         <tr>
@@ -86,7 +86,6 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
